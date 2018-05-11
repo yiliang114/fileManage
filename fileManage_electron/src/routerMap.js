@@ -1,5 +1,5 @@
 import React from 'react';
-import {HashRouter as Router, Route, Switch} from 'react-router-dom';
+import {Router, Route, Switch} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 // 按路由拆分代码
 import Loadable from 'react-loadable';
