@@ -10,7 +10,7 @@ import com.mrjzhang.bean.User;
 import com.mrjzhang.service.UserService;
 
 @RestController
-@RequestMapping(value="/api/user")
+@RequestMapping(value="/user/api")
 public class UserRestController {
     @Autowired
     private UserService userService;

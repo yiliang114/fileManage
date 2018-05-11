@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/element")
+@RequestMapping(value = "/element/api")
 public class ElementRestController {
   @Autowired
   private ElementService elementService;
