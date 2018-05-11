@@ -17,43 +17,40 @@ public class UserRestController {
 
     @RequestMapping(value="/addUser", method = RequestMethod.POST)
     public boolean addUser(User user) {
-        System.out.println("开始新增。。。");
-        return userService.addUser(user);
+      System.out.println("开始新增。。。");
+      return userService.addUser(user);
     }
 
     @RequestMapping(value="/updateUser", method = RequestMethod.PUT)
     public boolean updateUser(User user) {
-        System.out.println("开始更新。。。");
-        return userService.updateUser(user);
+      System.out.println("开始更新。。。");
+      return userService.updateUser(user);
     }
 
     @RequestMapping(value="/deleteUser", method = RequestMethod.DELETE)
     public boolean deleteUser(@RequestParam(value = "userId", required = true) int userId) {
-        System.out.println("开始删除。。。");
-        return userService.deleteUser(userId);
+      System.out.println("开始删除。。。");
+      return userService.deleteUser(userId);
     }
 
     @RequestMapping(value="/userId", method = RequestMethod.GET)
     public User findUserById(@RequestParam(value = "userId", required = true) int userId) {
-        System.out.println("开始查询。。。");
-        return userService.findUserById(userId);
+      System.out.println("开始查询。。。");
+      return userService.findUserById(userId);
     }
 
+    // todo
+    // 需要处理没有找到数据的情况的处理
     @RequestMapping(value="/userName", method = RequestMethod.GET)
     public User findUserByName(@RequestParam(value = "userName", required = true) String userName) {
-        System.out.println("开始查询。。。");
-        return userService.findUserByName(userName);
+      System.out.println("开始查询。。。");
+      return userService.findUserByName(userName);
     }
 
     @RequestMapping(value="/userAge", method = RequestMethod.GET)
     public User findUserByAge(@RequestParam(value = "userAge", required = true) int userAge) {
-        System.out.println("开始查询。。。");
-        return userService.findUserByAge(userAge);
+      System.out.println("开始查询。。。");
+      return userService.findUserByAge(userAge);
     }
-
-
-
-
-
 
 }
