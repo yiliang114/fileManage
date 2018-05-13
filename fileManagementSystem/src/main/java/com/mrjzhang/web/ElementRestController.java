@@ -1,15 +1,17 @@
 package com.mrjzhang.web;
 
 import com.mrjzhang.bean.Element;
+import com.mrjzhang.resultBody.ResponseResult;
 import com.mrjzhang.service.ElementService;
+import com.mrjzhang.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
-import com.mrjzhang.utils.RestResultGenerator;
 
 @RestController
 @RequestMapping(value = "/element/api")
@@ -18,38 +20,44 @@ public class ElementRestController {
   private ElementService elementService;
 
   @RequestMapping(value = "/addElement", method = RequestMethod.POST)
-  public boolean addElement(Element element) {
+  public ResponseResult addElement(Element element) {
     System.out.println("开始新增。。。");
-    return elementService.addElement(element);
+    return ResultUtil.success(elementService.addElement(element));
   }
 
   @RequestMapping(value = "/updateELement", method = RequestMethod.PUT)
-  public boolean updateELement(Element element) {
+  public ResponseResult updateELement(Element element) {
     System.out.println("开始更新。。。");
-    return elementService.updateELement(element);
+    return ResultUtil.success(elementService.updateELement(element));
   }
 
   @RequestMapping(value = "/deleteElement", method = RequestMethod.DELETE)
-  public boolean deleteElement(@RequestParam(value = "id", required = true) int id) {
+  public ResponseResult deleteElement(@RequestParam(value = "id", required = true) int id) {
     System.out.println("开始删除。。。");
-    return elementService.deleteElement(id);
+    return ResultUtil.success(elementService.deleteElement(id));
   }
 
   @RequestMapping(value = "/elementName", method = RequestMethod.GET)
-  public Element findElementByName(@RequestParam(value = "name", required = true) String name) {
+  public ResponseResult findElementByName(@RequestParam(value = "name", required = true) String name) {
     System.out.println("开始查询。。。");
-    return elementService.findElementByName(name);
+    return ResultUtil.success(elementService.findElementByName(name));
   }
 
   @RequestMapping(value = "/elementId", method = RequestMethod.GET)
-  public Element findElementById(@RequestParam(value = "id", required = true) int id) {
+  public ResponseResult findElementById(@RequestParam(value = "id", required = true) int id) {
     System.out.println("开始查询id。。。");
-    return elementService.findElementById(id);
+    return ResultUtil.success(elementService.findElementById(id));
   }
 
+  //@RequestMapping(value = "/elements", method = RequestMethod.GET)
+  //public List<Element> getElements() {
+  //  System.out.println("开始查询所有elements。。。");
+  //  return elementService.getElements();
+  //}
+
   @RequestMapping(value = "/elements", method = RequestMethod.GET)
-  public List<Element> getElements() {
+  public ResponseResult getElements() {
     System.out.println("开始查询所有elements。。。");
-    return elementService.getElements();
+    return ResultUtil.success(elementService.getElements());
   }
 }

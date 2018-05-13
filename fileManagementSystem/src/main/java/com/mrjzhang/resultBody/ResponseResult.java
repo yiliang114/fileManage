@@ -6,12 +6,12 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package com.mrjzhang.bean;
+package com.mrjzhang.resultBody;
 
 public class ResponseResult<T> {
   private String info;
   private T data;
-  private String code;
+  private Integer code;
 
   public String getInfo() {
     return info;
@@ -29,11 +29,11 @@ public class ResponseResult<T> {
     this.data = data;
   }
 
-  public String getCode() {
+  public Integer getCode() {
     return code;
   }
 
-  public void setCode(String code) {
+  public void setCode(Integer code) {
     this.code = code;
   }
 }

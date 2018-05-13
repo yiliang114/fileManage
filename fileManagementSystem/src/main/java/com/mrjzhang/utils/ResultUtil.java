@@ -8,14 +8,25 @@
 
 package com.mrjzhang.utils;
 
-import com.mrjzhang.bean.ResponseResult;
+import com.mrjzhang.resultBody.ResponseResult;
 
-public class RestResultGenerator {
-  public static <T> ResponseResult<T> genResult(T data, String info){
+public class ResultUtil {
+  public static ResponseResult success(Object data){
 
-    ResponseResult<T> result = new ResponseResult<T>();
+    ResponseResult result = new ResponseResult();
     result.setData(data);
-    result.setCode("0");
+    result.setCode(0);
+    return result;
+  }
+
+  public static ResponseResult success() {
+    return success(null);
+  }
+
+  public static ResponseResult error(Object data,String info) {
+    ResponseResult result = new ResponseResult();
+    result.setData(data);
+    result.setCode(1);
     result.setInfo(info);
     return result;
   }
