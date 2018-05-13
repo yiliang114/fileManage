@@ -19,6 +19,10 @@ const AsyncNotFound = Loadable({
   loader: () => import ('./containers/NotFound'),
   loading: MyLoadingComponent
 });
+const AsyncElementTable = Loadable({
+  loader: () => import ('./containers/Element.js'),
+  loading: MyLoadingComponent
+});
 
 // 路由配置
 class RouteMap extends React.Component {
@@ -26,8 +30,9 @@ class RouteMap extends React.Component {
     return (
       <Router history={history}>
         <Switch>
-          <Route path="/" exact component={AsyncHome}/>
-          <Route path="/city" component={AsyncCity}/>
+          {/* <Route exact path="/" component={AsyncHome}/> */}
+          <Route exact path="/city" component={AsyncCity}/>
+          <Route exact path="/" component={AsyncElementTable}/>
           <Route component={AsyncNotFound}/>
         </Switch>
       </Router>

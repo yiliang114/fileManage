@@ -4,11 +4,11 @@ import {Provider} from 'mobx-react'
 import stores from './store/indexStore'
 
 import './index.less';
-import App from './App';
+import Page from './Page';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
   <Provider {...stores}>
-  <App/>
+  <Page/>
 </Provider>, document.getElementById('root'));
 registerServiceWorker();
