@@ -6,6 +6,15 @@ public class Element {
   private double score;
   private String picture;
   private String curve;
+  private String create_time;
+
+  public String getCreate_time() {
+    return create_time;
+  }
+
+  public void setCreate_time(String create_time) {
+    this.create_time = create_time;
+  }
 
   public int getId() {
     return id;
