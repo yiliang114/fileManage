@@ -18,6 +18,7 @@ public class UserRestController {
     @RequestMapping(value="/addUser", method = RequestMethod.POST)
     public boolean addUser(User user) {
       System.out.println("开始新增。。。");
+      System.out.println(user);
       return userService.addUser(user);
     }
 

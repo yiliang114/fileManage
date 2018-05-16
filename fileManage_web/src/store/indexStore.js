@@ -2,7 +2,7 @@ import pageStore from './pageStore'
 import creationStore from './crowd/creationStore';
 import elementStore from'./crowd/elementStore';
 import keywordStore from './crowd/keywordStore';
-import supernatantStore from './crowd/supernatantStore';
+import detailStore from './crowd/DetailStore';
 // import dataInsightStore from './dataInsightStore';
 // import dataOverviewStore from './dataOverviewStore'
 
@@ -11,7 +11,7 @@ export default {
   creationStore, 
   elementStore, 
   keywordStore, 
-  supernatantStore, 
+  detailStore, 
   // dataInsightStore,
   // dataOverviewStore
 }

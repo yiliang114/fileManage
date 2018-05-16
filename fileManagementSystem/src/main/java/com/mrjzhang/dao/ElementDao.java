@@ -9,11 +9,11 @@ import java.util.List;
 @Mapper
 public interface ElementDao {
   // 数据添加
-  @Insert("insert into fileinfos(id,name,score,picture,curve) values (#{id},#{name},#{score},#{picture},#{curve})")
+  @Insert("insert into fileinfos(id,name,score,picture,curve,create_time) values (#{id},#{name},#{score},#{picture},#{curve},#{create_time})")
   void addElement(Element element);
 
   // 数据修改
-  @Update("update fileinfos set name=#{name},score=#{score},picture=#{picture},curve=#{curve} where id=#{id}")
+  @Update("update fileinfos set name=#{name},score=#{score},picture=#{picture},curve=#{curve},create_time=#{create_time} where id=#{id}")
   void updateELement(Element element);
 
   // 数据删除

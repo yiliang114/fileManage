@@ -7,7 +7,7 @@ import './element.less';
 
 import AccreditModal from './AccreditModal'
 import DeleteModal from './DeleteModal'
-import Supernatant from './Supernatant'
+import ElementDetail from './ElementDetail'
 
 import { formatTime } from '../lib/utils';
 
@@ -18,7 +18,7 @@ const RadioGroup = Radio.Group;
 // datePicker
 const { RangePicker } = DatePicker
 
-@inject('elementStore', 'supernatantStore', 'creationStore')
+@inject('elementStore', 'detailStore', 'creationStore')
 @observer
 class Element extends React.Component {
 
@@ -35,7 +35,11 @@ class Element extends React.Component {
   }
 
   componentDidMount() {
-    this.props.elementStore.initELementList()
+    // post方法
+    // todo
+    this.props.elementStore.initELementList({
+      name: 111
+    })
   }
 
   // 截取过长的字符串
@@ -200,13 +204,10 @@ class Element extends React.Component {
     this.props.history.push(`${url}/${value}`);
   }
 
-  // supernatant
-  showSupernatant = (record) => {
-    // todo
-    // 提取方式的字段名要改，目前现在这里转化成 number
-    this.props.supernatantStore.setId(record.id)
-    this.props.supernatantStore.changeExtractType(record.type)
-    this.props.supernatantStore.changeVisible(true)
+  // ElementDetail
+  showElementDetail = (record) => {
+    this.props.detailStore.setId(record.id)
+    this.props.detailStore.changeVisible(true)
   }
 
   // 分页
@@ -240,7 +241,7 @@ class Element extends React.Component {
       dataIndex: 'id',
       key: 'id',
       width: 100,
-      render: (text, record) => <a onClick={() => this.showSupernatant(record)}>{text}</a>,
+      render: (text, record) => <a onClick={() => this.showElementDetail(record)}>{text}</a>,
     }, {
       title: '元素名称',
       dataIndex: 'name',
@@ -329,7 +330,7 @@ class Element extends React.Component {
 
           <AccreditModal crowdId={this.state.id} />
           <DeleteModal record={this.state.record} />
-          <Supernatant />
+          <ElementDetail />
         </Card>
 
       </div>

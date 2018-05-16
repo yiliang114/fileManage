@@ -1,6 +1,6 @@
 import {observable, action, configure, runInAction, transaction} from 'mobx'
 import {getCrowdList} from '../../services/crowd';
-import {getELementList} from '../../services/element';
+import {getELementList,deleteElement} from '../../services/element';
 
 configure({enforceActions: true})
 
@@ -47,11 +47,11 @@ class elementStore {
   // table data
   @action initELementList = async(params) => {
     const resp = await getELementList(params)
-    console.log('xxxxxxxxxx',resp)
-    if(resp) {
+    console.log('ELement List',resp)
+    if(resp && resp.code === 0 && resp.data) {
       runInAction(() => {
-        this.elementList = resp 
-        // this.elementTotal = resp.total
+        this.elementList = resp.data
+        this.elementTotal = 0
       })
     } else {
       runInAction(() => {
@@ -65,8 +65,8 @@ class elementStore {
     this.searchText = value
   }
 
-  @action updateCrowdList = (params = {}) => {
-    this.initCrowdList(params)
+  @action updateELementList = (params = {}) => {
+    this.initELementList(params)
   }
 
   // accreditModal
@@ -82,6 +82,10 @@ class elementStore {
       ? bool
       : false
   }
+
+  
+
+
 
 }
 

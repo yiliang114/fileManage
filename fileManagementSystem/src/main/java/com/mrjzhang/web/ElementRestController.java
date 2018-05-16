@@ -20,15 +20,15 @@ public class ElementRestController {
   private ElementService elementService;
 
   @RequestMapping(value = "/addElement", method = RequestMethod.POST)
-  public ResponseResult addElement(Element element) {
+  public ResponseResult addElement(@RequestBody Element element) {
     System.out.println("开始新增。。。");
     return ResultUtil.success(elementService.addElement(element));
   }
 
   @RequestMapping(value = "/updateELement", method = RequestMethod.PUT)
-  public ResponseResult updateELement(Element element) {
+  public ResponseResult updateELement(@RequestBody Element element) {
     System.out.println("开始更新。。。");
-    System.out.println(element.getName());
+    System.out.println(element.getName()+" "+element.getId());
     boolean result = elementService.updateELement(element);
     if(result) {
       return ResultUtil.success(result);
