@@ -3,11 +3,14 @@ package com.mrjzhang.web;
 import com.mrjzhang.bean.Element;
 import com.mrjzhang.resultBody.ResponseResult;
 import com.mrjzhang.service.ElementService;
+import com.mrjzhang.utils.ReqBody;
 import com.mrjzhang.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by @author: mrjzhang on 2018-5-13
@@ -56,11 +59,25 @@ public class ElementRestController {
   }
 
   @RequestMapping(value = "/elements", method = RequestMethod.POST)
-  public ResponseResult getElements(@RequestBody String req) {
+  public ResponseResult getElements(@RequestBody ReqBody reqBody) {
     System.out.println("开始查询所有elements。。。");
-    System.out.println(req);
-    List<Element> elements = elementService.getElements();
-    return ResultUtil.success(elements);
+
+    int page = reqBody.getPage();
+    int limit = reqBody.getLimit();
+    System.out.println(page);
+    System.out.println(limit);
+    // 组装result
+    List<Element> elements = elementService.getElements(reqBody);
+    int size = elements.size();
+    HashMap<String , Object> map = new HashMap<String , Object>();
+    if(page != 0 && limit != 0) {
+      // 这里需要注意，不能超出list 的最大下标
+      elements = elements.subList((page-1)*limit,page*limit > size ? size : page*limit);
+    }
+    map.put("elements" , elements);
+    map.put("total" ,size);
+
+    return ResultUtil.success(map);
   }
 
   //@RequestMapping(value = "/elements", method = RequestMethod.GET)

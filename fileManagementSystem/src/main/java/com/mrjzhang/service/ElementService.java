@@ -1,6 +1,8 @@
 package com.mrjzhang.service;
 
 import com.mrjzhang.bean.Element;
+import com.mrjzhang.utils.ReqBody;
+
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ public interface ElementService {
   Element findElementByName(String name);
   Element findElementById(int id);
 
-  List<Element> getElements();
+  List<Element> getElements(ReqBody requestBody);
   //List<Element> getWrongElements();
 
 }

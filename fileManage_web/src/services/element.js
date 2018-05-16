@@ -2,7 +2,15 @@ import request from './request'
 import axios from 'axios'
 
 export const getELementList = (params) => {
-  return request('/element/api/elements',params)
+  return request('/element/api/elements',{
+    page: 1,
+    limit: 10,
+    start_time: '0000-00-00',
+    end_time: '0000-00-00',
+    num_order: '',
+    create_time_order: '',
+    ...params
+  })
 }
 
 export const getElementDetail = (id) => {

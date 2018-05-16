@@ -217,14 +217,16 @@ class Element extends React.Component {
 
   // 页码改变的回调
   changePage = (page, pageSize) => {
-    this.props.elementStore.updateCrowdList({
-      page
+    this.props.elementStore.updateELementList({
+      page,
+      limit: pageSize
     })
   }
 
   // pageSize 改变的回调
   onShowSizeChange = (current, size) => {
-    this.props.elementStore.updateCrowdList({
+    this.props.elementStore.updateELementList({
+      page: current,
       limit: size
     })
   }

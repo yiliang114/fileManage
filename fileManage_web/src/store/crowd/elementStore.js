@@ -50,8 +50,8 @@ class elementStore {
     console.log('ELement List',resp)
     if(resp && resp.code === 0 && resp.data) {
       runInAction(() => {
-        this.elementList = resp.data
-        this.elementTotal = 0
+        this.elementList = resp.data.elements
+        this.elementTotal = resp.data.total
       })
     } else {
       runInAction(() => {

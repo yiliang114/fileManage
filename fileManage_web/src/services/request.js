@@ -3,7 +3,7 @@ import axios from 'axios'
 const request = (api, params) => {
   if (params) {
     return axios
-      .post(api, {data: params})
+      .post(api, params)
       .then(resp => resp.data)
       .then(resp => {
         // if (resp.code === 401 && resp.url) {   location.href = resp.url; } else if

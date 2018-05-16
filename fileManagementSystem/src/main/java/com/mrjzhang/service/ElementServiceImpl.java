@@ -3,6 +3,7 @@ package com.mrjzhang.service;
 
 import com.mrjzhang.bean.Element;
 import com.mrjzhang.dao.ElementDao;
+import com.mrjzhang.utils.ReqBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,7 +68,8 @@ public class ElementServiceImpl implements ElementService{
   }
 
   @Override
-  public List<Element> getElements() {
+  public List<Element> getElements(ReqBody requestBody) {
+
     return elementDao.getElements();
   }
 }
