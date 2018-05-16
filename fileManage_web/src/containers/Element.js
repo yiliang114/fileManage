@@ -35,11 +35,7 @@ class Element extends React.Component {
   }
 
   componentDidMount() {
-    // post方法
-    // todo
-    this.props.elementStore.initELementList({
-      name: 111
-    })
+    this.props.elementStore.initELementList()
   }
 
   // 截取过长的字符串
@@ -236,7 +232,7 @@ class Element extends React.Component {
     sortedInfo = sortedInfo || {};
     filteredInfo = filteredInfo || {};
 
-    const tipDom = <p className="tip">授权状态<Tooltip placement="bottom" title={this.state.tip}><Icon type="info-circle-o" /></Tooltip></p>
+    // const tipDom = <p className="tip">授权状态<Tooltip placement="bottom" title={this.state.tip}><Icon type="info-circle-o" /></Tooltip></p>
 
     const columns = [{
       title: '元素ID',
@@ -251,37 +247,10 @@ class Element extends React.Component {
       width: 100,      
       align: 'left',
       render: (text, record) => this.strCut(text, 0, 4)
-    }, {
-      title: '创建时间',
-      dataIndex: 'create_time',
-      key: 'create_time',
-      width: 150,      
-      render: (text, record) => this.strCut(text, 5),
-      // 后端排序
-      sorter: (a, b) => a.create_time.length - b.create_time.length,
-      sortOrder: sortedInfo.columnKey === 'create_time' && sortedInfo.order,
-    }, 
-    // {
-    //   title: '创建状态',
-    //   dataIndex: 'picture',
-    //   key: 'picture',
-    //   width: 100,      
-    //   render: (text, record) => (
-    //     text == 3 ? <div style={{ color: '#ff4d4f' }}>失败</div> : text == 2 ? <div style={{ color: '#95de64' }}>成功</div> : <div>准备中</div>
-    //   ),
-    //   filters: [
-    //     { text: '失败', value: '3' },
-    //     { text: '成功', value: '2' },
-    //     { text: '准备中', value: '1' }
-    //   ]
-    // },
-     {
+    },{
       title: '图片数据路径',
       dataIndex: 'picture',
-      key: 'picture',
-      // 后端排序
-      sorter: (a, b) => a.num.length - b.num.length,
-      sortOrder: sortedInfo.columnKey === 'num' && sortedInfo.order,
+      key: 'picture'
     }, {
       title: '力矩数据路径',
       dataIndex: 'curve',
@@ -291,10 +260,38 @@ class Element extends React.Component {
       // title: tipDom,
       title: '分数',
       dataIndex: 'score',
+      width: 100,
       key: 'score',
+      // 后端排序
+      sorter: (a, b) => a.num.length - b.num.length,
+      sortOrder: sortedInfo.columnKey === 'num' && sortedInfo.order,
       // render: (text, record) => {
       //   return text.is_authorize == 0 ? <a onClick={() => this.showAccreditModal(record)}>未授权</a> : <div style={{ color: '#95de64' }}>已授权</div>
       // }
+    },
+    {
+      title: '创建状态',
+      dataIndex: 'picture',
+      key: 'status',
+      width: 100,      
+      render: (text, record) => (
+        text == 3 ? <div style={{ color: '#ff4d4f' }}>失败</div> : text == 2 ? <div style={{ color: '#95de64' }}>成功</div> : <div>准备中</div>
+      ),
+      // filters: [
+      //   { text: '失败', value: '3' },
+      //   { text: '成功', value: '2' },
+      //   { text: '准备中', value: '1' }
+      // ]
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'create_time',
+      key: 'create_time',
+      width: 150,      
+      render: (text, record) => this.strCut(text, 5),
+      // 后端排序
+      sorter: (a, b) => a.create_time.length - b.create_time.length,
+      sortOrder: sortedInfo.columnKey === 'create_time' && sortedInfo.order,
     }];
 
     const suffix = this.props.elementStore.searchText ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null
