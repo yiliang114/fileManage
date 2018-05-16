@@ -5,13 +5,13 @@ import com.mrjzhang.resultBody.ResponseResult;
 import com.mrjzhang.service.ElementService;
 import com.mrjzhang.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Created by @author: mrjzhang on 2018-5-13
+ */
 
 @RestController
 @RequestMapping(value = "/element/api")
@@ -28,7 +28,13 @@ public class ElementRestController {
   @RequestMapping(value = "/updateELement", method = RequestMethod.PUT)
   public ResponseResult updateELement(Element element) {
     System.out.println("开始更新。。。");
-    return ResultUtil.success(elementService.updateELement(element));
+    System.out.println(element.getName());
+    boolean result = elementService.updateELement(element);
+    if(result) {
+      return ResultUtil.success(result);
+    } else {
+      return ResultUtil.error(result,"访问出错");
+    }
   }
 
   @RequestMapping(value = "/deleteElement", method = RequestMethod.DELETE)
@@ -49,16 +55,18 @@ public class ElementRestController {
     return ResultUtil.success(elementService.findElementById(id));
   }
 
-  //@RequestMapping(value = "/elements", method = RequestMethod.GET)
-  //public List<Element> getElements() {
-  //  System.out.println("开始查询所有elements。。。");
-  //  return elementService.getElements();
-  //}
-
-  @RequestMapping(value = "/elements", method = RequestMethod.GET)
-  public ResponseResult getElements() {
+  @RequestMapping(value = "/elements", method = RequestMethod.POST)
+  public ResponseResult getElements(@RequestBody String req) {
     System.out.println("开始查询所有elements。。。");
-    return ResultUtil.success(elementService.getElements());
+    System.out.println(req);
+    List<Element> elements = elementService.getElements();
+    return ResultUtil.success(elements);
   }
+
+  //@RequestMapping(value = "/elements", method = RequestMethod.GET)
+  //public ResponseResult getElements() {
+  //  System.out.println("开始查询所有elements。。。");
+  //  return ResultUtil.success(elementService.getElements());
+  //}
 
 }
