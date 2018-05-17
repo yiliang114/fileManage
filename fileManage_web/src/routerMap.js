@@ -31,8 +31,9 @@ class RouteMap extends React.Component {
       <Router history={history}>
         <Switch>
           {/* <Route exact path="/" component={AsyncHome}/> */}
-          {/* <Route exact path="/city" component={AsyncCity}/> */}
+
           <Route exact path="/" component={AsyncElementTable}/>
+          <Route exact path="/city" component={AsyncCity}/>
           <Route component={AsyncNotFound}/>
         </Switch>
       </Router>
