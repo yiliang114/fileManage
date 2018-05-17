@@ -2,7 +2,7 @@ export const formatTime = (date) => {
   if (!date) {
     return
   }
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+  return `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0'+ (date.getMonth() + 1) : date.getMonth() + 1}-${date.getDate()}`
 }
 
 //获取n天前／n天后的时间

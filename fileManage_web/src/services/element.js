@@ -5,11 +5,16 @@ export const getELementList = (params) => {
   return request('/element/api/elements',{
     page: 1,
     limit: 10,
-    start_time: '0000-00-00',
-    end_time: '0000-00-00',
+    // all： 表示拉取全部； 0，1，2 分表表示 准备中，已完成 和 失败
+    generateStatus: [0,1,2],
+    // all： 表示拉取全部； 0，1 分别表示不正常和正常
+    scoreStatus: [0,1],
+    start_time: '',
+    end_time: '',
     name: '',
     num_order: '',
     create_time_order: '',
+
     ...params
   })
 }

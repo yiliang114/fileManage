@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, Table, Pagination, Input, Icon, Radio, DatePicker, Tooltip } from 'antd';
+import { Button, Card, Table, Pagination, Input, Icon, Radio, DatePicker, Tooltip,Col,InputNumber } from 'antd';
 import { inject, observer } from 'mobx-react'
 import { withRouter } from "react-router-dom";
 import './element.less';
@@ -31,7 +31,8 @@ class Element extends React.Component {
     // 授权id
     id: null,
     // delete modal record
-    record: null
+    record: null,
+    scale: 9,
   }
 
   componentDidMount() {
@@ -62,17 +63,20 @@ class Element extends React.Component {
       sortedInfo: sorter
     })
 
-    if (Object.keys(filters).length !== 0) {
-      // 只有 创建状态和提取方式有过滤操作
-      if (Object.keys(filters).indexOf('extract_status') > -1) {
-        const param = filters.extract_status.map((item) => parseInt(item))
-        this.props.elementStore.updateCrowdList({
-          extract_status: param
+    if (Object.keys(filters).length !== 0 && (filters.score !== null || filters.status !== null)) {
+      // 只有 分数 和 创建状态 有过滤操作
+      if (Object.keys(filters).indexOf('score') > -1 && filters.score !== null) {
+        const param = filters.score.map((item) => parseInt(item))
+        this.props.elementStore.updateELementList({
+          // todo
+          scoreStatus: param.length === 0 ? [0,1] : param
         })
-      } else if (Object.keys(filters).indexOf('type') > -1) {
-        const param = filters.type.map((item) => parseInt(item))
-        this.props.elementStore.updateCrowdList({
-          type: param
+      } else if (Object.keys(filters).indexOf('status') > -1 && filters.status !== null) {
+        const param = filters.status.map((item) => parseInt(item))
+        this.props.elementStore.updateELementList({
+          // todo
+          // 这里也需要加一个字段之后，status的 filter 才不会等于 null 而应该是 []
+          generateStatus: param.length === 0 ? [0,1] : param
         })
       }
     } else if (Object.keys(sorter).length !== 0) {
@@ -133,7 +137,7 @@ class Element extends React.Component {
       }
     }
 
-    this.props.elementStore.updateCrowdList({
+    this.props.elementStore.updateELementList({
       ...date
     })
   }
@@ -142,7 +146,7 @@ class Element extends React.Component {
     this.setState({
       radioSelected: ''
     })
-    this.props.elementStore.updateCrowdList({
+    this.props.elementStore.updateELementList({
       start_time: dateString[0],
       end_time: dateString[1],
     })
@@ -183,6 +187,14 @@ class Element extends React.Component {
     })
   }
 
+
+  changeSlider = (value) => {
+    this.setState({
+      scale: value
+    })
+    console.log('阈值',value)
+  }
+
   render() {
     let { sortedInfo, filteredInfo } = this.state;
     sortedInfo = sortedInfo || {};
@@ -219,21 +231,31 @@ class Element extends React.Component {
       key: 'score',
       // 后端排序
       sorter: (a, b) => a.num.length - b.num.length,
-      sortOrder: sortedInfo.columnKey === 'num' && sortedInfo.order
+      sortOrder: sortedInfo.columnKey === 'num' && sortedInfo.order,
+      filters: [
+        { text: '正常', value: 1 },
+        { text: '错误', value: 0 }
+      ],
+      filteredValue: filteredInfo.score || null,
+      onFilter: (value, record) => record.score.toString().includes(value),
+      
     },
     {
       title: '创建状态',
-      dataIndex: 'picture',
+      dataIndex: 'score',
       key: 'status',
-      width: 100,      
+      width: 120,      
       render: (text, record) => (
         text == 3 ? <div style={{ color: '#ff4d4f' }}>失败</div> : text == 2 ? <div style={{ color: '#95de64' }}>成功</div> : <div>准备中</div>
       ),
-      // filters: [
-      //   { text: '失败', value: '3' },
-      //   { text: '成功', value: '2' },
-      //   { text: '准备中', value: '1' }
-      // ]
+      filters: [
+        { text: '失败', value: '3' },
+        { text: '成功', value: '2' },
+        { text: '准备中', value: '1' }
+      ],
+      filteredValue: filteredInfo.status || null,
+      // todo 这里需要数据库加字段才能解决
+      onFilter: (value, record) => record.status.toString().includes(value),
     },
     {
       title: '创建时间',
@@ -254,10 +276,7 @@ class Element extends React.Component {
     return (
       <div className="crowd">
         <div className="action-bar">
-          <Button type="primary">
-            <Link to='/creation'>创建元素</Link>
-          </Button>
-
+          输入score的阈值: <InputNumber min={1} max={100} onChange={this.changeSlider} value={this.state.scale} />
           <Input
             className="search-input"
             placeholder="搜索元素名称"
@@ -278,7 +297,6 @@ class Element extends React.Component {
           <RangePicker className="angle-radio" format="YYYY-MM-DD" onChange={this.dateOnChange} />
           <Table style={{ marginTop: 10 }} columns={columns} dataSource={elementList} onChange={this.handleChange} rowKey={record => record.id} pagination={false} />
           <Pagination total={elementTotal} showSizeChanger showTotal={this.showTotal} onChange={this.changePage} onShowSizeChange={this.onShowSizeChange} />
-
           <AccreditModal crowdId={this.state.id} />
           <DeleteModal record={this.state.record} />
           <ElementDetail />

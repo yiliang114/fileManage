@@ -6,6 +6,9 @@ package com.mrjzhang.utils;
 public class ReqBody {
   private int page;
   private int limit;
+  private Object generateStatus;
+  // 分数的状态，用于筛选分数
+  private Object scoreStatus;
   private String name;
   private String start_time;
   private String end_time;
@@ -66,6 +69,22 @@ public class ReqBody {
 
   public void setCreate_time_order(String create_time_order) {
     this.create_time_order = create_time_order;
+  }
+
+  public Object getGenerateStatus() {
+    return generateStatus;
+  }
+
+  public void setGenerateStatus(Object generateStatus) {
+    this.generateStatus = generateStatus;
+  }
+
+  public Object getScoreStatus() {
+    return scoreStatus;
+  }
+
+  public void setScoreStatus(Object scoreStatus) {
+    this.scoreStatus = scoreStatus;
   }
 }
 

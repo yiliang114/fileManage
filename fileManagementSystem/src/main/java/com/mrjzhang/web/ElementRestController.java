@@ -69,11 +69,21 @@ public class ElementRestController {
     String name = reqBody.getName();
     String score_order = reqBody.getScore_order();
     String create_time_order = reqBody.getCreate_time_order();
-    System.out.println(page);
-    System.out.println(limit);
-    System.out.println(name);
-    System.out.println(score_order);
-    System.out.println(create_time_order);
+    Object generateStatus = reqBody.getGenerateStatus();
+    Object scoreStatus = reqBody.getScoreStatus();
+    String start_time = reqBody.getStart_time();
+    String end_time = reqBody.getEnd_time();
+
+    //System.out.println(page);
+    //System.out.println(limit);
+    //System.out.println(name);
+    //System.out.println(score_order);
+    //System.out.println(create_time_order);
+    System.out.println(generateStatus);
+    System.out.println(scoreStatus);
+    System.out.println(start_time);
+    System.out.println(end_time);
+
     // 组装result
     List<Element> elements = elementService.getElements(reqBody);
 
@@ -81,6 +91,13 @@ public class ElementRestController {
     if(name != null && !name.equals("")) {
       // .collect(Collectors.toList()) 将 stream 格式 转化为 List
       elements = elements.stream().filter(element -> element.getName().indexOf(name) != -1).collect(Collectors.toList());
+    }
+
+    // 时间筛选
+    if(!start_time.equals("") && !end_time.equals("")) {
+      elements = elements.stream()
+          .filter(element -> element.getCreate_time().compareTo(end_time) <= 0 && element.getCreate_time().compareTo(start_time) >= 0)
+          .collect(Collectors.toList());
     }
 
     // 排序
