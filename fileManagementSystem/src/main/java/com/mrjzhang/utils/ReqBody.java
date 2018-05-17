@@ -6,10 +6,19 @@ package com.mrjzhang.utils;
 public class ReqBody {
   private int page;
   private int limit;
+  private String name;
   private String start_time;
   private String end_time;
   private String num_order;
   private String create_time_order;
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
 
   public int getPage() {
     return page;

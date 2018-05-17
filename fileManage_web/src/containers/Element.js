@@ -98,13 +98,13 @@ class Element extends React.Component {
     this.props.elementStore.changeSearchText()
     // todo
     // 可能会有一个bug: 过滤或者排序 同时去搜索name，清空搜索框的情况下。
-    this.props.elementStore.updateCrowdList()
+    this.props.elementStore.updateELementList()
   }
 
   onChangeSearchText = (e) => {
     this.props.elementStore.changeSearchText(e.target.value)
     // 向后端要新数据
-    this.props.elementStore.updateCrowdList({
+    this.props.elementStore.updateELementList({
       name: e.target.value
     })
   }

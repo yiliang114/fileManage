@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by @author: mrjzhang on 2018-5-13
@@ -64,16 +64,30 @@ public class ElementRestController {
 
     int page = reqBody.getPage();
     int limit = reqBody.getLimit();
+    String name = reqBody.getName();
     System.out.println(page);
     System.out.println(limit);
+    System.out.println(name);
     // 组装result
     List<Element> elements = elementService.getElements(reqBody);
+
+    // 搜索
+    if(name != null && name != "") {
+      // .collect(Collectors.toList()) 将 stream 格式 转化为 List
+      elements = elements.stream().filter(element -> element.getName().indexOf(name) != -1).collect(Collectors.toList());
+    }
+
     int size = elements.size();
     HashMap<String , Object> map = new HashMap<String , Object>();
+
+    // 翻页
     if(page != 0 && limit != 0) {
       // 这里需要注意，不能超出list 的最大下标
       elements = elements.subList((page-1)*limit,page*limit > size ? size : page*limit);
     }
+
+
+
     map.put("elements" , elements);
     map.put("total" ,size);
 
