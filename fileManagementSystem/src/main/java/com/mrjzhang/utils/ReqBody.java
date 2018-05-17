@@ -9,7 +9,7 @@ public class ReqBody {
   private String name;
   private String start_time;
   private String end_time;
-  private String num_order;
+  private String score_order;
   private String create_time_order;
 
   public String getName() {
@@ -52,12 +52,12 @@ public class ReqBody {
     this.end_time = end_time;
   }
 
-  public String getNum_order() {
-    return num_order;
+  public String getScore_order() {
+    return score_order;
   }
 
-  public void setNum_order(String num_order) {
-    this.num_order = num_order;
+  public void setScore_order(String score_order) {
+    this.score_order = score_order;
   }
 
   public String getCreate_time_order() {

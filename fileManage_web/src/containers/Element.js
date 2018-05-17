@@ -56,11 +56,12 @@ class Element extends React.Component {
   }
 
   handleChange = (pagination, filters, sorter) => {
-    console.log('filters: ', filters)
+    console.log(pagination, filters, sorter)
     this.setState({
       filteredInfo: filters,
       sortedInfo: sorter
     })
+
     if (Object.keys(filters).length !== 0) {
       // 只有 创建状态和提取方式有过滤操作
       if (Object.keys(filters).indexOf('extract_status') > -1) {
@@ -75,19 +76,11 @@ class Element extends React.Component {
         })
       }
     } else if (Object.keys(sorter).length !== 0) {
+      // 暂时只有这两个有排序功能
+      const target = sorter.columnKey === "score" ? "score_order":"create_time_order";
       // 排序操作
-      this.props.elementStore.updateCrowdList({
-        orders: [           // 排序字段
-          {
-            name: sorter.columnKey,
-            order: sorter.order === 'descend' ? 'desc' : 'asc'
-          }
-        ]
-      })
-    } else {
-      // 翻页
-      this.props.elementStore.updateCrowdList({
-
+      this.props.elementStore.updateELementList({
+        [target]:sorter.order === 'descend' ? 'desc' : 'asc'
       })
     }
   }
@@ -163,43 +156,6 @@ class Element extends React.Component {
     this.props.elementStore.changeAccreditVisible(true)
   }
 
-  // operation
-  operationHandle = (e, record) => {
-    switch (e.target.text.trim()) {
-      case '洞察':
-        console.log('洞察');
-        this.goto('data-insight', record.id)
-        break;
-      case '拓展':
-        console.log('拓展', this.props.creationStore.extractType);
-        this.props.creationStore.changeStepCurrent(1)
-        var path = {
-          pathname: 'creation',
-          query: {
-            name: record.name
-          },
-        }
-        this.props.history.push(path);
-        break;
-      case '应用':
-        console.log('应用');
-        this.goto('marketing', record.id)
-        break;
-      case '删除':
-        console.log('删除');
-        this.props.elementStore.changeDeleteVisible(true)
-        this.setState({
-          record
-        })
-        break;
-    }
-  }
-
-  // router
-  goto = (url, value) => {
-    this.props.history.push(`${url}/${value}`);
-  }
-
   // ElementDetail
   showElementDetail = (record) => {
     this.props.detailStore.setId(record.id)
@@ -256,7 +212,6 @@ class Element extends React.Component {
       dataIndex: 'curve',
       key: 'curve',
     }, {
-      // 授权状态
       // title: tipDom,
       title: '分数',
       dataIndex: 'score',
@@ -264,10 +219,7 @@ class Element extends React.Component {
       key: 'score',
       // 后端排序
       sorter: (a, b) => a.num.length - b.num.length,
-      sortOrder: sortedInfo.columnKey === 'num' && sortedInfo.order,
-      // render: (text, record) => {
-      //   return text.is_authorize == 0 ? <a onClick={() => this.showAccreditModal(record)}>未授权</a> : <div style={{ color: '#95de64' }}>已授权</div>
-      // }
+      sortOrder: sortedInfo.columnKey === 'num' && sortedInfo.order
     },
     {
       title: '创建状态',

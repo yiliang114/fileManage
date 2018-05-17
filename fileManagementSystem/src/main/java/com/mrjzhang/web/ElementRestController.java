@@ -8,6 +8,8 @@ import com.mrjzhang.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,16 +67,82 @@ public class ElementRestController {
     int page = reqBody.getPage();
     int limit = reqBody.getLimit();
     String name = reqBody.getName();
+    String score_order = reqBody.getScore_order();
+    String create_time_order = reqBody.getCreate_time_order();
     System.out.println(page);
     System.out.println(limit);
     System.out.println(name);
+    System.out.println(score_order);
+    System.out.println(create_time_order);
     // 组装result
     List<Element> elements = elementService.getElements(reqBody);
 
     // 搜索
-    if(name != null && name != "") {
+    if(name != null && !name.equals("")) {
       // .collect(Collectors.toList()) 将 stream 格式 转化为 List
       elements = elements.stream().filter(element -> element.getName().indexOf(name) != -1).collect(Collectors.toList());
+    }
+
+    // 排序
+    if(score_order != null && !score_order.equals("")) {
+      if(score_order.equals("desc")) {
+        System.out.println("desc...");
+        Collections.sort(elements, new Comparator<Element>() {
+          @Override
+          public int compare(Element o1, Element o2) {
+            if(o1.getScore()-(o2.getScore())!=0){
+              return o1.getScore()-(o2.getScore()) >= 0 ? 1 : -1;
+            }else{
+              return  o1.getName().compareTo(o2.getName());
+            }
+          }
+        });
+        // 遍历集合
+        //for (Element element : elements) {
+        //  System.out.println(element.getName() + "---" + element.getScore());
+        //}
+      } else if(score_order.equals("asc")) {
+        System.out.println("asc...");
+        Collections.sort(elements, new Comparator<Element>() {
+          @Override
+          public int compare(Element o1, Element o2) {
+            if(o1.getScore()-(o2.getScore())!=0){
+              return o1.getScore()-(o2.getScore()) < 0 ? 1 : -1;
+            }else{
+              return  o1.getName().compareTo(o2.getName());
+            }
+          }
+        });
+        // 遍历集合
+        //for (Element element : elements) {
+        //  System.out.println(element.getName() + "---" + element.getScore());
+        //}
+      }
+    }
+    if(create_time_order != null && !create_time_order.equals("")) {
+      if(create_time_order.equals("desc")) {
+        Collections.sort(elements, new Comparator<Element>() {
+          @Override
+          public int compare(Element o1, Element o2) {
+            if(o1.getCreate_time().compareTo(o2.getCreate_time()) != 0){
+              return o1.getCreate_time().compareTo(o2.getCreate_time());
+            }else{
+              return  o1.getName().compareTo(o2.getName());
+            }
+          }
+        });
+      } else if(create_time_order.equals("asc")) {
+        Collections.sort(elements, new Comparator<Element>() {
+          @Override
+          public int compare(Element o1, Element o2) {
+            if(o1.getCreate_time().compareTo(o2.getCreate_time()) != 0){
+              return -(o1.getCreate_time().compareTo(o2.getCreate_time()));
+            }else{
+              return  o1.getName().compareTo(o2.getName());
+            }
+          }
+        });
+      }
     }
 
     int size = elements.size();
@@ -85,6 +153,8 @@ public class ElementRestController {
       // 这里需要注意，不能超出list 的最大下标
       elements = elements.subList((page-1)*limit,page*limit > size ? size : page*limit);
     }
+
+
 
 
 

@@ -1,6 +1,6 @@
-import {observable, action, configure, runInAction, transaction} from 'mobx'
+import {observable, action, configure, runInAction} from 'mobx'
 import {getCrowdList} from '../../services/crowd';
-import {getELementList,deleteElement} from '../../services/element';
+import {getELementList} from '../../services/element';
 
 configure({enforceActions: true})
 

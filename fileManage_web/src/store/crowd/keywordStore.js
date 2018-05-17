@@ -73,4 +73,4 @@ class KeywordStore {
   }
 }
 
-export default new KeywordStore
+export default new KeywordStore()

@@ -1,6 +1,6 @@
 package com.mrjzhang.bean;
 
-public class Element {
+public class Element{
   private int id;
   private String name;
   private double score;
