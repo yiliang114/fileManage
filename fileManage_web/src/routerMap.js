@@ -23,6 +23,10 @@ const AsyncElementTable = Loadable({
   loader: () => import ('./containers/Element.js'),
   loading: MyLoadingComponent
 });
+const AsyncMonitor = Loadable({
+  loader: () => import ('./containers/Monitor/index.js'),
+  loading: MyLoadingComponent
+});
 
 // 路由配置
 class RouteMap extends React.Component {
@@ -34,6 +38,7 @@ class RouteMap extends React.Component {
 
           <Route exact path="/" component={AsyncElementTable}/>
           <Route exact path="/city" component={AsyncCity}/>
+          <Route exact path="/monitor" component={AsyncMonitor}/>
           <Route component={AsyncNotFound}/>
         </Switch>
       </Router>
