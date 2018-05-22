@@ -40,7 +40,8 @@ class Detail extends React.Component {
         <Col span={8}>
           <h3>ip4</h3> 
           <CountUp useEasing={true} separator="," start={2500} end={5000} duration={3} style={{ fontSize: 30, fontWeight: 20, color: 'blue' }} />           
-        </Col>        <Col span={8}>
+        </Col>
+        <Col span={8}>
           <h3>ip5</h3> 
           <CountUp useEasing={true} separator="," start={2500} end={5000} duration={3} style={{ fontSize: 30, fontWeight: 20, color: 'blue' }} />           
         </Col>

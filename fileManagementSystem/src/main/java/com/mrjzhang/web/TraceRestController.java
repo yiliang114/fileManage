@@ -1,57 +1,33 @@
 package com.mrjzhang.web;
 
+import com.mrjzhang.bean.Trace;
+import com.mrjzhang.service.TraceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mrjzhang.bean.User;
-import com.mrjzhang.service.UserService;
+import java.util.List;
 
 @RestController
-@RequestMapping(value="/user/api")
-public class UserRestController {
+@RequestMapping(value="/trace/api")
+public class TraceRestController {
     @Autowired
-    private UserService userService;
+    private TraceService traceService;
 
-    @RequestMapping(value="/addUser", method = RequestMethod.POST)
-    public boolean addUser(User user) {
-      System.out.println("开始新增。。。");
-      System.out.println(user);
-      return userService.addUser(user);
+    @RequestMapping(value="/traceOfIp", method = RequestMethod.GET)
+    public Trace traceNumByIp(@RequestParam(value = "ip", required = true) String ip) {
+      System.out.println("开始查询ip nums。。。");
+      System.out.println(traceService.traceNumByIp(ip).getIp());
+      return traceService.traceNumByIp(ip);
     }
 
-    @RequestMapping(value="/updateUser", method = RequestMethod.PUT)
-    public boolean updateUser(User user) {
-      System.out.println("开始更新。。。");
-      return userService.updateUser(user);
-    }
-
-    @RequestMapping(value="/deleteUser", method = RequestMethod.DELETE)
-    public boolean deleteUser(@RequestParam(value = "userId", required = true) int userId) {
-      System.out.println("开始删除。。。");
-      return userService.deleteUser(userId);
-    }
-
-    @RequestMapping(value="/userId", method = RequestMethod.GET)
-    public User findUserById(@RequestParam(value = "userId", required = true) int userId) {
-      System.out.println("开始查询。。。");
-      return userService.findUserById(userId);
-    }
-
-    // todo
-    // 需要处理没有找到数据的情况的处理
-    @RequestMapping(value="/userName", method = RequestMethod.GET)
-    public User findUserByName(@RequestParam(value = "userName", required = true) String userName) {
-      System.out.println("开始查询。。。");
-      return userService.findUserByName(userName);
-    }
-
-    @RequestMapping(value="/userAge", method = RequestMethod.GET)
-    public User findUserByAge(@RequestParam(value = "userAge", required = true) int userAge) {
-      System.out.println("开始查询。。。");
-      return userService.findUserByAge(userAge);
+    @RequestMapping(value="/traces", method = RequestMethod.GET)
+    public List<Trace> traceAllNum() {
+      System.out.println("开始查询all ip nums。。。");
+      System.out.println(traceService.traceAllNum().get(0));
+      return traceService.traceAllNum();
     }
 
 }
