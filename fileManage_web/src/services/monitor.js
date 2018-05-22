@@ -14,3 +14,17 @@ export const getMonitorDetail = () => {
 
   return resp
 }
+
+export const getMonitorPandect = () => {
+  return request(`/trace/api/pandect`)
+  // const resp = axios.get('/element/api/deleteElement?id=${id}')
+  //   .then(resp => resp.data)
+  //   .then(resp => {
+  //     return resp;
+  //   })
+  //   .catch(error => {
+  //     console.error('请求出错，请重试')
+  //   });
+
+  // return resp
+}
