@@ -30,4 +30,15 @@ public class TraceRestController {
       return traceService.traceAllNum();
     }
 
+    @RequestMapping(value="/pandect", method = RequestMethod.GET)
+    public int tracePandect() {
+      System.out.println("开始查询 pandect。。。");
+      List<Trace> list = traceService.traceAllNum();
+      int pandect = 0;
+      for (Trace trace : list) {
+        pandect += trace.getNum();
+      }
+      return pandect;
+    }
+
 }
