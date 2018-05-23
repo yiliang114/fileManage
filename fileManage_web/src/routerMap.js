@@ -31,6 +31,14 @@ const AsyncMonitor = Loadable({
   loader: () => import ('./containers/Monitor/index.js'),
   loading: MyLoadingComponent
 });
+const AsyncUpload = Loadable({
+  loader: () => import ('./containers/Upload/index.js'),
+  loading: MyLoadingComponent
+});
+const AsyncOperation = Loadable({
+  loader: () => import ('./containers/Operation/index.js'),
+  loading: MyLoadingComponent
+});
 
 // 路由配置
 class RouteMap extends React.Component {
@@ -47,6 +55,8 @@ class RouteMap extends React.Component {
             >
               <Menu.Item key="monitor"><Link to="/monitor"><span><Icon type="user" />Element Monitor</span></Link></Menu.Item>
               <Menu.Item key="table" ><Link to="/table"><span><Icon type="laptop" />Element Table</span></Link></Menu.Item>
+              <Menu.Item key="upload" ><Link to="/upload"><span><Icon type="laptop" />Element upload</span></Link></Menu.Item>
+              <Menu.Item key="operation" ><Link to="/operation"><span><Icon type="laptop" />Other operation</span></Link></Menu.Item>
             </Menu>
           </Sider>
           <Layout>
@@ -55,6 +65,8 @@ class RouteMap extends React.Component {
                 <Route exact path="/table" component={AsyncElementTable}/>
                 <Route exact path="/city" component={AsyncCity}/>
                 <Route exact path="/monitor" component={AsyncMonitor}/>
+                <Route exact path="/upload" component={AsyncUpload}/>
+                <Route exact path="/operation" component={AsyncOperation}/>
                 <Route component={AsyncNotFound}/>
               </Switch>
             </Content>
