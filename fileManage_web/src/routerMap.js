@@ -1,6 +1,6 @@
 import React from 'react';
-import {Router, Route, Switch,Link} from 'react-router-dom';
-import {Layout, Menu, Icon, Breadcrumb} from 'antd';
+import { Router, Route, Switch, Link } from 'react-router-dom';
+import { Layout, Menu, Icon, Breadcrumb } from 'antd';
 import createHistory from 'history/createBrowserHistory';
 // 按路由拆分代码
 import Loadable from 'react-loadable';
@@ -12,31 +12,31 @@ const { Header, Content, Sider } = Layout;
 const history = createHistory();
 
 const AsyncHome = Loadable({
-  loader: () => import ('./containers/Home'),
+  loader: () => import('./containers/Home'),
   loading: MyLoadingComponent
 });
 const AsyncCity = Loadable({
-  loader: () => import ('./containers/City'),
+  loader: () => import('./containers/City'),
   loading: MyLoadingComponent
 });
 const AsyncNotFound = Loadable({
-  loader: () => import ('./containers/NotFound'),
+  loader: () => import('./containers/NotFound'),
   loading: MyLoadingComponent
 });
 const AsyncElementTable = Loadable({
-  loader: () => import ('./containers/Element.js'),
+  loader: () => import('./containers/Element.js'),
   loading: MyLoadingComponent
 });
 const AsyncMonitor = Loadable({
-  loader: () => import ('./containers/Monitor/index.js'),
+  loader: () => import('./containers/Monitor/index.js'),
   loading: MyLoadingComponent
 });
 const AsyncUpload = Loadable({
-  loader: () => import ('./containers/Upload/index.js'),
+  loader: () => import('./containers/Upload/index.js'),
   loading: MyLoadingComponent
 });
 const AsyncOperation = Loadable({
-  loader: () => import ('./containers/Operation/index.js'),
+  loader: () => import('./containers/Operation/index.js'),
   loading: MyLoadingComponent
 });
 
@@ -53,21 +53,21 @@ class RouteMap extends React.Component {
               defaultOpenKeys={['monitor']}
               style={{ height: '100%', borderRight: 0 }}
             >
-              <Menu.Item key="monitor"><Link to="/monitor"><span><Icon type="user" />Element Monitor</span></Link></Menu.Item>
+              <Menu.Item key="monitor"><Link to="/monitor"><span><Icon type="area-chart" />Element Monitor</span></Link></Menu.Item>
               <Menu.Item key="table" ><Link to="/table"><span><Icon type="laptop" />Element Table</span></Link></Menu.Item>
-              <Menu.Item key="upload" ><Link to="/upload"><span><Icon type="laptop" />Element upload</span></Link></Menu.Item>
-              <Menu.Item key="operation" ><Link to="/operation"><span><Icon type="laptop" />Other operation</span></Link></Menu.Item>
+              <Menu.Item key="upload" ><Link to="/upload"><span><Icon type="folder-add" />Element upload</span></Link></Menu.Item>
+              <Menu.Item key="operation" ><Link to="/operation"><span><Icon type="appstore-o" />Other operation</span></Link></Menu.Item>
             </Menu>
           </Sider>
           <Layout>
             <Content>
               <Switch>
-                <Route exact path="/table" component={AsyncElementTable}/>
-                <Route exact path="/city" component={AsyncCity}/>
-                <Route exact path="/monitor" component={AsyncMonitor}/>
-                <Route exact path="/upload" component={AsyncUpload}/>
-                <Route exact path="/operation" component={AsyncOperation}/>
-                <Route component={AsyncNotFound}/>
+                <Route exact path="/table" component={AsyncElementTable} />
+                <Route exact path="/city" component={AsyncCity} />
+                <Route exact path="/monitor" component={AsyncMonitor} />
+                <Route exact path="/upload" component={AsyncUpload} />
+                <Route exact path="/operation" component={AsyncOperation} />
+                <Route component={AsyncNotFound} />
               </Switch>
             </Content>
           </Layout>
