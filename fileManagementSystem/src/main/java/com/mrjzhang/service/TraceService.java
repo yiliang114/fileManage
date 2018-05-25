@@ -10,4 +10,8 @@ public interface TraceService {
     Trace traceNumByIp(String ip);
 
     List<Trace> traceAllNum();
+
+    List<String> traceOfIps();
+
+    List<Trace> traceByDay();
 }

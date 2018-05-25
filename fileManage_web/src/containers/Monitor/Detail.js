@@ -22,29 +22,19 @@ class Detail extends React.Component {
   render() {
     const {ips} = this.state
 
+    const ipChunk = ips && ips.map((trace) => {
+      return (
+        <Col span={8} key={trace.ip}>
+          <h3>{trace.ip}</h3>        
+          <CountUp useEasing={true} separator="," start={0} end={trace.num} duration={3} style={{ fontSize: 30, fontWeight: 20, color: 'blue' }} />           
+        </Col>
+      )
+    })
+
     return (<div>
       <h2>当前在线的客户端</h2>
       <Row>
-        <Col span={8}>
-          <h3>ip1</h3>
-          <CountUp useEasing={true} separator="," start={2500} end={5000} duration={3} style={{ fontSize: 30, fontWeight: 20, color: 'blue' }} /> 
-        </Col>
-        <Col span={8}>
-          <h3>ip2</h3>        
-          <CountUp useEasing={true} separator="," start={2500} end={5000} duration={3} style={{ fontSize: 30, fontWeight: 20, color: 'blue' }} />           
-        </Col>
-        <Col span={8}>
-          <h3>ip3</h3> 
-          <CountUp useEasing={true} separator="," start={2500} end={5000} duration={3} style={{ fontSize: 30, fontWeight: 20, color: 'blue' }} />           
-        </Col>
-        <Col span={8}>
-          <h3>ip4</h3> 
-          <CountUp useEasing={true} separator="," start={2500} end={5000} duration={3} style={{ fontSize: 30, fontWeight: 20, color: 'blue' }} />           
-        </Col>
-        <Col span={8}>
-          <h3>ip5</h3> 
-          <CountUp useEasing={true} separator="," start={2500} end={5000} duration={3} style={{ fontSize: 30, fontWeight: 20, color: 'blue' }} />           
-        </Col>
+        {ipChunk}
       </Row>
     </div>)
   }

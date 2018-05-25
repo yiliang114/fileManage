@@ -14,4 +14,10 @@ public interface TraceDao {
 
     @Select("select from_ip as ip,count(*) as num from fileinfos group by from_ip")
     List<Trace> traceAllNum();
+
+    @Select("select from_ip as ip from fileinfos group by from_ip")
+    List<String> traceOfIps();
+
+    @Select("select from_ip as ip,LEFT(create_time,10) as date,count(*) as num from fileinfos group by from_ip,date")
+    List<Trace> traceByDay();
 }

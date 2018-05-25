@@ -7,11 +7,18 @@ import  'echarts/lib/chart/bar';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 
+import {getTraceByDay,getTraceOfIps} from '../../services/monitor'
+
 class Chart extends React.Component {
 
-  state = {}
+  state = {
+    legend: {},
+    categoryData: [],
+    series: []
+  }
 
   componentDidMount() {
+    this.createData()
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));
     // 绘制图表
@@ -78,6 +85,25 @@ class Chart extends React.Component {
       ]
     });
   }
+
+  createData = async () => {
+    const ips = await getTraceOfIps()
+    console.log('ips',ips)
+    if(ips) {
+      this.setState({
+        legend: {
+          data: ips
+        }
+      })
+    }
+    const trace = await getTraceByDay()
+    console.log('trace',trace)
+    // todo
+    // 这个其实不应该放在前端处理
+    
+  }
+
+
 
   render() {
     return (

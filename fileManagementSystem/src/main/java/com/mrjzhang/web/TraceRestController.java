@@ -1,5 +1,6 @@
 package com.mrjzhang.web;
 
+import com.mrjzhang.bean.Series;
 import com.mrjzhang.bean.Trace;
 import com.mrjzhang.service.TraceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -41,4 +45,30 @@ public class TraceRestController {
       return pandect;
     }
 
+    @RequestMapping(value="/traceOfIps", method = RequestMethod.GET)
+    public List<String> traceOfIps() {
+      return traceService.traceOfIps();
+    }
+
+    @RequestMapping(value="/traceByDay", method = RequestMethod.GET)
+    public List<Trace> traceByDay() {
+      List<Trace> traceList = traceService.traceByDay();
+      int traceOfIpsLength = traceService.traceOfIps().size();
+      // 获取 echart 时间轴的时间
+      Calendar cal = Calendar.getInstance();
+      cal.add(Calendar.DATE,-1);
+      String yesterday = new SimpleDateFormat( "yyyy-MM-dd ").format(cal.getTime());
+      System.out.println(yesterday);
+
+      List<Series> dateList = new ArrayList<>();
+      // 规定显示的时间长度为 7 天
+      for (int i = 0; i< 7 ; i++) {
+        Series series = new Series();
+        series.setName();
+        //dateList.add()
+      }
+      List<Series> seriesList;
+      //for ()
+      return traceService.traceByDay();
+    }
 }

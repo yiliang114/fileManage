@@ -22,4 +22,14 @@ public class TraceServiceImpl implements TraceService {
   public List<Trace> traceAllNum() {
     return traceDao.traceAllNum();
   }
+
+  @Override
+  public List<String> traceOfIps() {
+    return traceDao.traceOfIps();
+  }
+
+  @Override
+  public List<Trace> traceByDay() {
+    return traceDao.traceByDay();
+  }
 }
