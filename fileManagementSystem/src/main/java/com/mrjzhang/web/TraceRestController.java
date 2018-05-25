@@ -64,7 +64,7 @@ public class TraceRestController {
       // 规定显示的时间长度为 7 天
       for (int i = 0; i< 7 ; i++) {
         Series series = new Series();
-        series.setName();
+        //series.setName();
         //dateList.add()
       }
       List<Series> seriesList;

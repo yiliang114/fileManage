@@ -39,6 +39,10 @@ const AsyncOperation = Loadable({
   loader: () => import('./containers/Operation/index.js'),
   loading: MyLoadingComponent
 });
+const AsyncConfiguration = Loadable({
+  loader: () => import('./containers/Configuration/index.js'),
+  loading: MyLoadingComponent
+});
 
 // 路由配置
 class RouteMap extends React.Component {
@@ -56,6 +60,7 @@ class RouteMap extends React.Component {
               <Menu.Item key="monitor"><Link to="/monitor"><span><Icon type="area-chart" />Element Monitor</span></Link></Menu.Item>
               <Menu.Item key="table" ><Link to="/table"><span><Icon type="laptop" />Element Table</span></Link></Menu.Item>
               <Menu.Item key="upload" ><Link to="/upload"><span><Icon type="folder-add" />Element upload</span></Link></Menu.Item>
+              <Menu.Item key="configuration" ><Link to="/configuration"><span><Icon type="setting" />upload configuration</span></Link></Menu.Item>
               <Menu.Item key="operation" ><Link to="/operation"><span><Icon type="appstore-o" />Other operation</span></Link></Menu.Item>
             </Menu>
           </Sider>
@@ -67,6 +72,7 @@ class RouteMap extends React.Component {
                 <Route exact path="/monitor" component={AsyncMonitor} />
                 <Route exact path="/upload" component={AsyncUpload} />
                 <Route exact path="/operation" component={AsyncOperation} />
+                <Route exact path="/configuration" component={AsyncConfiguration} />
                 <Route component={AsyncNotFound} />
               </Switch>
             </Content>
