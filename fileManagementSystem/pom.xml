@@ -83,6 +83,63 @@
             <artifactId>jxl</artifactId>
             <version>2.6.12</version>
         </dependency>
+
+        <!--第三方matlab jar包-->
+        <dependency>
+            <groupId>com.mrjzhang</groupId>
+            <artifactId>imgShow</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/imgShow.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mrjzhang</groupId>
+            <artifactId>imgHide</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/imgHide.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mrjzhang</groupId>
+            <artifactId>drawplot</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/drawplot.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mrjzhang</groupId>
+            <artifactId>javabuilder</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/javabuilder.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mrjzhang</groupId>
+            <artifactId>imagescMat</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/imagescMat.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mrjzhang</groupId>
+            <artifactId>plot_mat</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/plot_mat.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mrjzhang</groupId>
+            <artifactId>plotHide</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/plotHide.jar</systemPath>
+        </dependency>
     </dependencies>
 
 	<build>
@@ -93,6 +150,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
+                    <includeSystemScope>true</includeSystemScope>
                 </configuration>
             </plugin>
 		</plugins>

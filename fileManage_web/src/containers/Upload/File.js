@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Form, Icon, Input, Button, Checkbox, Card, Table } from 'antd';
+import { Layout, Form, Icon, Input, Button, Checkbox, Card, Table,Upload, message,Row, Col } from 'antd';
 
 const FormItem = Form.Item;
 const { Sider, Header, Content, Footer } = Layout;
@@ -24,6 +24,24 @@ const columns = [{
   dataIndex: 'address',
   key: 'address',
 }];
+
+const props = {
+  name: 'file',
+  action: '//jsonplaceholder.typicode.com/posts/',
+  headers: {
+    authorization: 'authorization-text',
+  },
+  onChange(info) {
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+};
 
 class FileForm extends React.Component {
 
@@ -56,11 +74,22 @@ class FileForm extends React.Component {
             <Content
               style={{ padding: '0 50px', backgroundColor: 'white' }}
             >
-              <input type="file" webkitdirectory="true" directory="true" />
-              <input type="file" />
-              <Button type="primary" htmlType="submit" className="login-form-button">
-                提交
-              </Button>
+            <Row>
+              <Col span={12}>
+                <Upload {...props}>
+                  <Button>
+                    <Icon type="upload" /> 上传图片文件
+                  </Button>
+                </Upload>
+              </Col>
+              <Col span={12}>
+                <Upload {...props}>
+                  <Button>
+                    <Icon type="upload" /> 上传曲线文件
+                  </Button>
+                </Upload>
+              </Col>
+            </Row>
             </Content>
           </Layout>
           <Footer

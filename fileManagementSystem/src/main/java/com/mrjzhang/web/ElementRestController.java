@@ -74,11 +74,6 @@ public class ElementRestController {
     String start_time = reqBody.getStart_time();
     String end_time = reqBody.getEnd_time();
 
-    //System.out.println(page);
-    //System.out.println(limit);
-    //System.out.println(name);
-    //System.out.println(score_order);
-    //System.out.println(create_time_order);
     System.out.println(generateStatus);
     System.out.println(scoreStatus);
     System.out.println(start_time);

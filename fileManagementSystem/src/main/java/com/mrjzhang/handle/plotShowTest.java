@@ -1,16 +1,17 @@
 package com.mrjzhang.handle;
 
-import imgHide.imgHideClass;
 import com.mathworks.toolbox.javabuilder.MWException;
+import plotHide.plotHideClass;
+
 /**
  * Created by @author: mrjzhang on 2018/5/26
  */
-public class imgShowTest {
+public class plotShowTest {
   public static void main(String[] args) {
-    imgHideClass i;
+    plotHideClass i;
     try {
-      i = new imgHideClass();
-      i.imgHide("F:\\dataSource\\parabolarBlade\\bladeFile\\parabolarBlade500sl50sh0cx0cy.mat","C:\\Users\\Mrz2J\\Desktop\\matlab\\imgTemp\\xxx.png");
+      i = new plotHideClass();
+      i.plotHide("G:\\作业盘\\javagui\\m-jtest\\03-13\\torgeFile0.0838-0\\parabolarBlade500sl150sh100cx-200cy0.0838");
       System.out.println("success");
     } catch (MWException e) {
       System.out.println("error");
