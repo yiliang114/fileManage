@@ -1,7 +1,5 @@
 package com.mrjzhang.client;
 
-//import sort.*;
-
 public class runTask {
 	public static void main(String[] args) {
 		// run in 5 second
@@ -12,8 +10,6 @@ public class runTask {
 			public void run() {
 				String lastNewFile = null;// 储存上一个最新的文件名
 				while (true) {
-					// ------- code for task to run
-					// ------- ends here
 					FileListSort fileListSort = new FileListSort();
 					if (fileListSort.getFilePathName(temp).equals(lastNewFile)) {
 						System.out.println("没有新文件产生");

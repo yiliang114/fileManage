@@ -156,7 +156,6 @@ public class ClientGui extends JFrame implements ActionListener {
 	class MyActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			// 先判断该路径是文件还是文件夹
 			// 填在文件夹输入框中
 			if (e.getSource().equals(open2)) {// 检测定位到open动作

@@ -8,6 +8,7 @@ public class SearchFile {
 		File dir = new File(path);
 		// 通过一个过滤器将关键字信息搜索
 		FilenameFilter filter = new FilenameFilter() {
+			@Override
 			public boolean accept(File dir, String name) {
 				return name.contains(keyword);
 			}
