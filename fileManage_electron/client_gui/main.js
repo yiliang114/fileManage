@@ -7,6 +7,20 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
+// 打开系统本地文件或者网页链接
+// const {shell} = require('electron');
+// var path1 = "D:\迅雷下载";
+// shell.openItem(path1);
+
+// 打开浏览器
+// const {shell} = require('electron')
+// shell.openExternal('https://github.com')
+
+// 打开文件管理器
+const shell = require('electron').shell
+const os = require('os')
+shell.showItemInFolder(os.homedir())
+
 // 获取命令中带的参数
 const argv = process
   .argv
