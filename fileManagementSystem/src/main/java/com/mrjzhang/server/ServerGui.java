@@ -5,9 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ServerGui extends JFrame  {
 
@@ -79,7 +76,6 @@ public class ServerGui extends JFrame  {
 			// 传输事件
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				// filePathName 路径（只是个文件夹名）
 
 				//这个地方已经将服务器线程和按钮事件线程分为两个线程，不再冲突

@@ -5,8 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-//import Socket.*;
-//import sort.FileListSort;
 
 //127.0.0.1 = localhost 本地
 public class ClientGui extends JFrame implements ActionListener {
@@ -99,7 +97,6 @@ public class ClientGui extends JFrame implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				if (e.getSource().equals(submit1)){
 
 					Client client = new Client(textSERVER_IP.getText(),
