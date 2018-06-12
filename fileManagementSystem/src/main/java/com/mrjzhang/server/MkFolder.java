@@ -1,9 +1,6 @@
 package com.mrjzhang.server;
-//import Time.*;
 
 import java.io.File;
-
-//import JudgeType.*;
 
 public class MkFolder {
 

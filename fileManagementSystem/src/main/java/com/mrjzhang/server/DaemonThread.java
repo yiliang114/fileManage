@@ -2,16 +2,17 @@ package com.mrjzhang.server;
 
 public class DaemonThread extends Thread {
 	//后台线程
+  /**
+  * port
+  */
 	int port ;
 	String filePathName ;
 	public void setPort(int port) {
 		this.port = port;
 	}
-
 	public void setFilePathName(String filePathName) {
 		this.filePathName = filePathName;
 	}
-
 	public DaemonThread() {
 	}
 
@@ -22,7 +23,6 @@ public class DaemonThread extends Thread {
 //			try {
 //				Thread.sleep(100);
 //			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
 //			//后台线程持续输出i
@@ -32,15 +32,11 @@ public class DaemonThread extends Thread {
 		try {
 			Server server = new Server(port, filePathName);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
 	}
 
 //	public static void main(String[] args) {
-//		// TODO Auto-generated method stub
 //		DaemonThread test = new DaemonThread();
 //		test.setDaemon(true);
 //		//在start之后再设置为守护线程的话，就会抛出异常，线程是正常工作的，只是不再是守护线程
