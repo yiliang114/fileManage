@@ -1,31 +1,46 @@
 import React, {Component} from 'react';
-import { Layout,Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Layout,Form, Input, Button,Divider } from 'antd';
 import {inject, observer} from 'mobx-react'
 import './App.css';
 
 import {getElements} from './services/apis'
 
+import FileAndFolderTabs from './components/FileAndFolderTabs'
+
 const FormItem = Form.Item;
 const { Header, Content, Footer } = Layout;
+
+const electron = window.require('electron');  
+const dialog = electron.remote.dialog
+
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 8 },
+    sm: { span: 5 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 16 },
+  },
+};
 
 @inject('pageStore')
 @observer
 class AppForm extends Component {
 
-  // async componentDidMount() {
-  //   const resp = await getElements()
-  //   if (resp) {
-  //     console.log('resp', resp)
-  //   }
-  // }
-
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
+    dialog.showOpenDialog(null, {
+      properties: ['openFile', 'openDirectory','multiSelections'],
+      // 后缀为html, js, json, md其中之一
+      // filters: [{
+      //   name: 'Text', 
+      //   extensions: ['html', 'js', 'json', 'md'] 
+      // }]
+    }, function(filenames) {
+      console.log('filenames',filenames)
     });
+
   }
 
   render() {
@@ -35,39 +50,44 @@ class AppForm extends Component {
 
     return (
       <Layout>
-        <Content style={{ padding: '0 50px' }}>
-          <input type="file" webkitdirectory="true" directory="true" />  
-          <input type="file" />  
-          <Form onSubmit={this.handleSubmit} className="login-form">
-          <FormItem>
-            {getFieldDecorator('userName', {
-              rules: [{ required: true, message: 'Please input your username!' }],
-            })(
-              <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
-            )}
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator('password', {
-              rules: [{ required: true, message: 'Please input your Password!' }],
-            })(
-              <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-            )}
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator('remember', {
-              valuePropName: 'checked',
-              initialValue: true,
-            })(
-              <Checkbox>Remember me</Checkbox>
-            )}
-            <a className="login-form-forgot" href="">Forgot password</a>
-            <Button type="primary" htmlType="submit" className="login-form-button">
-              Log in
-            </Button>
-            Or <a href="">register now!</a>
-          </FormItem>
-        </Form>
-        </Content>
+        <Header style={{background: 'white', textAlign: 'center'}}>
+          <h2>文件传输客户端</h2>
+        </Header>
+        <Layout>
+          <Content style={{ padding: '0 50px' }}>
+            <h4>请输入以下信息</h4>
+            <Form onSubmit={this.handleSubmit} className="login-form">
+              <FormItem
+                {...formItemLayout}
+                label="服务器IP"
+              >
+                {getFieldDecorator('serverIp', {
+                  rules: [{ required: true, message: 'Please input your serverIp!' }],
+                })(
+                  <Input placeholder="serverIp" />
+                )}
+              </FormItem>
+              <FormItem
+                {...formItemLayout}
+                label="服务器端口"
+              >
+                {getFieldDecorator('serverPort', {
+                  rules: [{ required: true, message: 'Please input your serverPort!' }],
+                })(
+                  <Input placeholder="serverPort" />
+                )}
+              </FormItem>
+              <FileAndFolderTabs />
+              <Divider />
+              <Button type="primary" htmlType="submit" className="login-form-button">
+                传输
+              </Button>
+            </Form>
+          </Content>
+        </Layout>  
+        <Footer>
+          
+        </Footer>      
       </Layout>
     );
   }

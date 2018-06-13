@@ -12,11 +12,11 @@ import com.mrjzhang.service.ElementService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class DeleteData {
-  @Autowired
-  private ElementService elementService;
+    @Autowired
+    private ElementService elementService;
 
-  public boolean deleteById(int id){
-    System.out.println("开始删除。。。");
-    return elementService.deleteElement(id);
-  }
+    public boolean deleteById(int id) {
+        System.out.println("开始删除");
+        return elementService.deleteElement(id);
+    }
 }

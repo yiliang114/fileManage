@@ -7,6 +7,9 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
+// 页面通信
+const {ipcMain} = require('electron')
+
 // 打开系统本地文件或者网页链接
 // const {shell} = require('electron');
 // var path1 = "D:\迅雷下载";
@@ -17,9 +20,9 @@ const url = require('url')
 // shell.openExternal('https://github.com')
 
 // 打开文件管理器
-const shell = require('electron').shell
-const os = require('os')
-shell.showItemInFolder(os.homedir())
+// const shell = require('electron').shell
+// const os = require('os')
+// shell.showItemInFolder(os.homedir())
 
 // 获取命令中带的参数
 const argv = process
@@ -46,6 +49,8 @@ function createWindow() {
     }))
   }
 
+  // close menu
+  mainWindow.setMenu(null)
   // Open the DevTools. 
   mainWindow.webContents.openDevTools()
   // window is closed.
@@ -56,6 +61,16 @@ function createWindow() {
       // corresponding element.
       mainWindow = null
     })
+
+  // 选择文件夹
+  // const dialog = require('electron').dialog;
+  // dialog.showOpenDialog({ properties: [ 'openFile', 'openDirectory', 'multiSelections' ]})
+  ipcMain.on('asynchronous-message', (event, arg) => {
+    event.sender.send('asychronous-reply', arg)
+    // app.quit()
+    // console.log(arg)
+
+  })
 }
 
 // This method will be called when Electron has finished initialization and is
