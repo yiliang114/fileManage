@@ -106,7 +106,6 @@ public class ServerGui extends JFrame  {
 	class MyActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			// 填在文件夹输入框中
 			if (e.getSource().equals(open)) {// 检测定位到open动作
 

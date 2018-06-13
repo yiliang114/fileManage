@@ -26,7 +26,6 @@ public class Server extends ServerSocket implements Runnable{
 	int i =0;
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 
 	}
 

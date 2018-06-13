@@ -13,7 +13,7 @@ public class FtpClientMain {
 
   public void start() {
     Client client = new Client(CLIENT_IP,
-        Integer.parseInt(SERVER_PORT), matFileName);
+        Integer.parseInt(SERVER_PORT), scoreFileName);
     System.out.println("传输成功！");
   }
 

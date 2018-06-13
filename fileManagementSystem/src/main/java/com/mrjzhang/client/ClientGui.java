@@ -109,7 +109,6 @@ public class ClientGui extends JFrame implements ActionListener {
 			// 传输事件
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				if (e.getSource().equals(submit)) {
 					// run in 5 second
 					//final long timeInterval = 5000;

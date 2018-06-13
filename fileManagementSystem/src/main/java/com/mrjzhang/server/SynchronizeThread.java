@@ -6,19 +6,16 @@ public class SynchronizeThread implements Runnable{
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		while(true){
 			receive();
 		}
 	}
 	public synchronized void receive() {
-		// TODO Auto-generated method stub
 		if(ticket>0){
 			//为了演示产生的问题，线程在这里睡眠一次
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			//睡眠结束之后，继续当前的票进行销售
@@ -28,7 +25,6 @@ public class SynchronizeThread implements Runnable{
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		//建立三个售票窗口的线程类来模拟窗口售票
 		SynchronizeThread ru = new SynchronizeThread();
 		Thread t = new Thread(ru);

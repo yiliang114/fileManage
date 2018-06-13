@@ -40,7 +40,6 @@ public class UserRestController {
       return userService.findUserById(userId);
     }
 
-    // todo
     // 需要处理没有找到数据的情况的处理
     @RequestMapping(value="/userName", method = RequestMethod.GET)
     public User findUserByName(@RequestParam(value = "userName", required = true) String userName) {
