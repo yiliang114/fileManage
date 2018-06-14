@@ -1,5 +1,7 @@
 import pageStore from './pageStore'
+import formStore from './formStore'
 
 export default {
-  pageStore
+  pageStore,
+  formStore
 }

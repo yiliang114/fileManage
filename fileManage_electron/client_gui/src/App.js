@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
-import { Layout,Form, Input, Button,Divider } from 'antd';
+import { Layout,Form, Input, Button,message } from 'antd';
 import {inject, observer} from 'mobx-react'
 import './App.css';
 
-import {getElements} from './services/apis'
+import {getElements,clientWork} from './services/apis'
 
 import FileAndFolderTabs from './components/FileAndFolderTabs'
 
 const FormItem = Form.Item;
 const { Header, Content, Footer } = Layout;
-
-const electron = window.require('electron');  
-const dialog = electron.remote.dialog
 
 const formItemLayout = {
   labelCol: {
@@ -24,28 +21,32 @@ const formItemLayout = {
   },
 };
 
-@inject('pageStore')
+@inject('pageStore','formStore')
 @observer
 class AppForm extends Component {
 
   handleSubmit = (e) => {
+    const {fileSrc,folderSrc,scanInterval,type} = this.props.formStore
     e.preventDefault();
-    dialog.showOpenDialog(null, {
-      properties: ['openFile', 'openDirectory','multiSelections'],
-      // 后缀为html, js, json, md其中之一
-      // filters: [{
-      //   name: 'Text', 
-      //   extensions: ['html', 'js', 'json', 'md'] 
-      // }]
-    }, function(filenames) {
-      console.log('filenames',filenames)
+    this.props.form.validateFields(async (err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        const resp = await clientWork(values.serverIp,values.serverPort,{
+          fileSrc,
+          folderSrc,
+          scanInterval,
+          type
+        })
+        this.palyInfos(resp)
+      }
     });
+  }
 
+  palyInfos = (infos) => {
+    message.info(infos);
   }
 
   render() {
-    const {name} = this.props.pageStore
-
     const { getFieldDecorator } = this.props.form;
 
     return (
@@ -56,13 +57,14 @@ class AppForm extends Component {
         <Layout>
           <Content style={{ padding: '0 50px' }}>
             <h4>请输入以下信息</h4>
-            <Form onSubmit={this.handleSubmit} className="login-form">
+            <Form onSubmit={this.handleSubmit}>
               <FormItem
                 {...formItemLayout}
                 label="服务器IP"
               >
                 {getFieldDecorator('serverIp', {
                   rules: [{ required: true, message: 'Please input your serverIp!' }],
+                  initialValue: '127.0.0.1'
                 })(
                   <Input placeholder="serverIp" />
                 )}
@@ -73,13 +75,13 @@ class AppForm extends Component {
               >
                 {getFieldDecorator('serverPort', {
                   rules: [{ required: true, message: 'Please input your serverPort!' }],
+                  initialValue: '9999'                  
                 })(
                   <Input placeholder="serverPort" />
                 )}
               </FormItem>
               <FileAndFolderTabs />
-              <Divider />
-              <Button type="primary" htmlType="submit" className="login-form-button">
+              <Button type="primary" onClick={this.handleSubmit}>
                 传输
               </Button>
             </Form>
