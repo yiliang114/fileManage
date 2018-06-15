@@ -1,6 +1,8 @@
 package com.mrjzhang.client;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 public class FileListSort {
@@ -34,5 +36,26 @@ public class FileListSort {
 		// System.out.println(tempFile.getPath() + "\t"+date);
 		// }
 	}
+
+  // 获取当前文件夹下所有文件
+  public List<String> getAllFile(String directoryPath,boolean isAddDirectory) {
+    List<String> list = new ArrayList<String>();
+    File baseFile = new File(directoryPath);
+    if (baseFile.isFile() || !baseFile.exists()) {
+      return list;
+    }
+    File[] files = baseFile.listFiles();
+    for (File file : files) {
+      if (file.isDirectory()) {
+        if(isAddDirectory){
+          list.add(file.getAbsolutePath());
+        }
+        list.addAll(getAllFile(file.getAbsolutePath(),isAddDirectory));
+      } else {
+        list.add(file.getAbsolutePath());
+      }
+    }
+    return list;
+  }
 
 }

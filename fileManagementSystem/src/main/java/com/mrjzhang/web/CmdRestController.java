@@ -17,25 +17,10 @@ public class CmdRestController {
     // 传输文件
     try {
       FtpClientMain ftpClientMain = new FtpClientMain();
-      String SERVER_IP = "127.0.0.1";
-      String SERVER_PORT = "9999";
-
-      String matFileName = "F:\\fileManageWorkspace\\send\\bladeFile-0\\parabolarBlade500sl150sh100cx-100cy.mat";
-      //String scoreFileName = "F:\\fileManageWorkspace\\send\\torgeFile0.0838-0\\parabolarBlade500sl150sh100cx-100cy0.0838";
-
-      System.out.println(cmdBody.getFileSrc());
-      System.out.println(cmdBody.getFolderSrc());
-      System.out.println(cmdBody.getScanInterval());
-      System.out.println(cmdBody.getType());
-      System.out.println(cmdBody.getServerIp());
-      System.out.println(cmdBody.getServerPort());
 
       if(cmdBody.getType() == 0) {
         ftpClientMain.start(cmdBody.getServerIp(),cmdBody.getServerPort(),cmdBody.getFileSrc());
-      } else {
-        ftpClientMain.start(cmdBody.getServerIp(),cmdBody.getServerPort(),matFileName);
       }
-
       System.out.println("传输文件成功");
       return "传输文件成功";
     } catch (Exception e) {
@@ -45,24 +30,16 @@ public class CmdRestController {
     }
   }
 
-  //监听文件夹
-  @RequestMapping(value="/monitorClientWork", method = RequestMethod.GET)
-  public void monitorClientWork() {
+  // 监听文件夹
+  @RequestMapping(value="/monitorClientWork", method = RequestMethod.POST)
+  public void monitorClientWork(@RequestBody CmdBody cmdBody) {
     // 传输文件
     try {
       FtpClientMain ftpClientMain = new FtpClientMain();
-      String SERVER_IP = "127.0.0.1";
-      String SERVER_PORT = "9999";
-      int scanInterval = 5000;
 
-      String matFileName = "F:\\fileManageWorkspace\\send\\bladeFile-0";
-      String scoreFileName = "F:\\fileManageWorkspace\\send\\torgeFile0.0838-0";
-      ftpClientMain.multifileStart(SERVER_IP,SERVER_PORT,scoreFileName,scanInterval);
-      //if(cmdBody.getType() == 0) {
-      //  ftpClientMain.start(cmdBody.getServerIp(),cmdBody.getServerPort(),cmdBody.getFileSrc());
-      //} else {
-      //  ftpClientMain.start(cmdBody.getServerIp(),cmdBody.getServerPort(),matFileName);
-      //}
+      if(cmdBody.getType() == 1) {
+        ftpClientMain.multifileStart(cmdBody.getServerIp(),cmdBody.getServerPort(),cmdBody.getFolderSrc(),cmdBody.getScanInterval());
+      }
       System.out.println("传输多文件成功");
 
     } catch (Exception e) {

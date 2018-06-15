@@ -6,19 +6,11 @@ const TabPane = Tabs.TabPane;
 const electron = window.require('electron');  
 const dialog = electron.remote.dialog
 
-function callback(key) {
-  console.log(key);
-}
-
-function palyInfos(infos) {
-  message.info('This is a normal message');
-}
-
 const TabComponent = ({formStore}) => {
 
-  const {changeValue,fileSrc} = formStore
+  const {changeValue,fileSrc,folderSrc,scanInterval} = formStore
 
-  function OpenDialog(e) {
+  function OpenFileDialog(e) {
     e.preventDefault();
     dialog.showOpenDialog(null, {
       properties: ['openFile','multiSelections'],
@@ -35,20 +27,43 @@ const TabComponent = ({formStore}) => {
     });
   }
 
+  function OpenFolderDialog(e) {
+    e.preventDefault();
+    dialog.showOpenDialog(null, {
+      properties: ['openDirectory','multiSelections'],
+    }, function(filenames) {
+      console.log('filenames',filenames)
+      if(filenames.length > 0 && filenames[0]) {
+        changeValue('folderSrc',filenames[0])
+      }
+    });
+  }
+
   function cutSrc(str) {
+    console.log('cutSrc',str)
     if(str.length < 30) {
       return str
     }
     return '...'+str.slice(-30)
   }
 
+  function enterScanInterval(e) {
+    changeValue('scanInterval',e.target.value)
+  }
+
+  function callback(key) {
+    console.log(key);
+    changeValue('type', 1)
+    console.log(formStore.type);
+  }
+
   return (
-    <Tabs defaultActiveKey="file" onChange={callback}>
+    <Tabs defaultActiveKey="folder" onChange={callback}>
       <TabPane tab="单文件传输" key="file">
         <div style={{height: 100}}>
           <Row style={{paddingBottom: 5}}>
             <Col span={6}>
-              <Button type="primary" onClick={OpenDialog}>
+              <Button type="primary" onClick={OpenFileDialog}>
                 选择文件地址
               </Button>
             </Col>
@@ -62,12 +77,12 @@ const TabComponent = ({formStore}) => {
         <div style={{height: 100}}>
           <Row style={{paddingBottom: 5}}>
             <Col span={6}>
-              <Button type="primary" onClick={palyInfos}>
-                选择文件夹
+              <Button type="primary" onClick={OpenFolderDialog}>
+                选择文件夹地址
               </Button>
             </Col>
             <Col span={18}>
-              <Input placeholder="文件文件夹" />
+              <h4 style={{lineHeight: '32px'}}>{folderSrc}</h4>
             </Col>
           </Row>
           <Row style={{paddingBottom: 5}}>
@@ -75,7 +90,7 @@ const TabComponent = ({formStore}) => {
               <h4 style={{lineHeight: '32px'}}>自动扫描时间:</h4>
             </Col>
             <Col span={6}>
-              <Input />
+              <Input defaultValue={scanInterval} onChange={enterScanInterval}/>
             </Col>
           </Row>
         </div>
