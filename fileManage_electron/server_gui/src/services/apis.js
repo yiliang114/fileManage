@@ -3,7 +3,8 @@ import axios from 'axios'
 export const serverStart = (serverPort,receiveFolder) => {
 
   return axios
-    .post('cmd/serverStart', {
+    // .post('cmd/serverStart', {
+    .post('http://localhost:8080/cmd/serverStart', {      
       serverPort,
       receiveFolder
     })
