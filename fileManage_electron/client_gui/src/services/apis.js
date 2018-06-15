@@ -31,3 +31,19 @@ export const clientWork = (SERVER_IP,SERVER_PORT,params) => {
       console.error('请求出错，请重试')
     });
 }
+
+export const monitorClientWork = (SERVER_IP,SERVER_PORT,params) => {
+  return axios
+    .post('cmd/monitorClientWork', {
+      serverIp: SERVER_IP,
+      serverPort: SERVER_PORT,
+      ...params
+    })
+    .then(resp => resp.data)
+    .then(resp => {
+      return resp;
+    })
+    .catch(error => {
+      console.error('请求出错，请重试')
+    });
+}

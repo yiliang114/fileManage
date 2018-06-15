@@ -3,7 +3,7 @@ import { Layout,Form, Input, Button,message } from 'antd';
 import {inject, observer} from 'mobx-react'
 import './App.css';
 
-import {clientWork} from './services/apis'
+import {clientWork,monitorClientWork} from './services/apis'
 
 import FileAndFolderTabs from './components/FileAndFolderTabs'
 
@@ -31,12 +31,25 @@ class AppForm extends Component {
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        const resp = await clientWork(values.serverIp,values.serverPort,{
-          fileSrc,
-          folderSrc,
-          scanInterval,
-          type
-        })
+        console.log('type',type)
+        let resp = null
+        if(this.props.formStore.type === 0) {
+          // 单文件传输
+          resp = await clientWork(values.serverIp,values.serverPort,{
+            fileSrc,
+            folderSrc,
+            scanInterval,
+            type
+          })
+        } else {
+          resp = await monitorClientWork(values.serverIp,values.serverPort,{
+            fileSrc,
+            folderSrc,
+            scanInterval,
+            type
+          })
+        }
+
         this.palyInfos(resp)
       }
     });
