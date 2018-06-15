@@ -3,6 +3,7 @@ package com.mrjzhang.web;
 import com.mrjzhang.client.FtpClientMain;
 import com.mrjzhang.server.FtpServerMain;
 import com.mrjzhang.utils.CmdBody;
+import com.mrjzhang.utils.CmdServerBody;
 import com.mrjzhang.utils.IpUtil;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,20 +49,20 @@ public class CmdRestController {
     }
   }
 
-  FtpServerMain ftpServerMain = new FtpServerMain();
-  @RequestMapping(value="/serverStart", method = RequestMethod.GET)
-  public void serverStart() {
+  @RequestMapping(value="/serverStart", method = RequestMethod.POST)
+  public String serverStart(@RequestBody CmdServerBody cmdServerBody) {
     // 传输文件
     try {
-      // 启动服务器, 所需参数带在url中
-      String SERVER_PORT = "9999";
-      String FolderName = "F:\\fileManageWorkspace\\receive";
+      FtpServerMain ftpServerMain = new FtpServerMain();
 
-      ftpServerMain.start(SERVER_PORT,FolderName);
+      ftpServerMain.start(cmdServerBody.getServerPort(),cmdServerBody.getReceiveFolder());
       System.out.println("开启服务器成功");
+      return "开启服务器成功";
     } catch (Exception e) {
       System.out.println("开启服务器失败");
       e.printStackTrace();
+      return "开启服务器失败";
+
     }
   }
 
