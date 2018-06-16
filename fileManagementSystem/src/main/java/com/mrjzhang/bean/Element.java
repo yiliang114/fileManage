@@ -7,6 +7,24 @@ public class Element{
   private String picture;
   private String curve;
   private String create_time;
+  private String from_ip;
+  private int status;
+
+  public String getFrom_ip() {
+    return from_ip;
+  }
+
+  public void setFrom_ip(String from_ip) {
+    this.from_ip = from_ip;
+  }
+
+  public int getStatus() {
+    return status;
+  }
+
+  public void setStatus(int status) {
+    this.status = status;
+  }
 
   public String getCreate_time() {
     return create_time;

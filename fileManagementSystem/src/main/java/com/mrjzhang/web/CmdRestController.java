@@ -1,10 +1,13 @@
 package com.mrjzhang.web;
 
 import com.mrjzhang.client.FtpClientMain;
+import com.mrjzhang.manage.file.JudgeFile;
 import com.mrjzhang.server.FtpServerMain;
+import com.mrjzhang.service.ElementService;
 import com.mrjzhang.utils.CmdBody;
 import com.mrjzhang.utils.CmdServerBody;
 import com.mrjzhang.utils.IpUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping(value="/cmd")
 public class CmdRestController {
+  @Autowired
+  private ElementService elementService;
 
   @RequestMapping(value="/clientWork", method = RequestMethod.POST)
   public String clientWork(@RequestBody CmdBody cmdBody) {
@@ -21,6 +26,7 @@ public class CmdRestController {
 
       if(cmdBody.getType() == 0) {
         ftpClientMain.start(cmdBody.getServerIp(),cmdBody.getServerPort(),cmdBody.getFileSrc());
+
       }
       System.out.println("传输文件成功");
       return "传输文件成功";
@@ -71,5 +77,17 @@ public class CmdRestController {
   public String getIp(HttpServletRequest request) {
     return IpUtil.getIpAddr(request);
   }
+
+  // todo
+  @RequestMapping(value="/dbToExcel", method = RequestMethod.GET)
+  public boolean dbToExcel(HttpServletRequest request) {
+    return true;
+  }
+
+  //@RequestMapping(value="/testxxx", method = RequestMethod.GET)
+  //public void testxxx() {
+  //  JudgeFile judgeFile = new JudgeFile();
+  //  judgeFile.manageFile("121212.mat","1212120.0838");
+  //}
 
 }

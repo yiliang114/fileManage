@@ -27,6 +27,7 @@ public class ElementRestController {
   @RequestMapping(value = "/addElement", method = RequestMethod.POST)
   public ResponseResult addElement(@RequestBody Element element) {
     System.out.println("开始新增。。。");
+
     return ResultUtil.success(elementService.addElement(element));
   }
 
@@ -176,10 +177,19 @@ public class ElementRestController {
     return ResultUtil.success(map);
   }
 
-  //@RequestMapping(value = "/elements", method = RequestMethod.GET)
-  //public ResponseResult getElements() {
-  //  System.out.println("开始查询所有elements。。。");
-  //  return ResultUtil.success(elementService.getElements());
-  //}
+  @RequestMapping(value = "/testAddElements", method = RequestMethod.GET)
+  public void testAddElements() {
+    System.out.println("testAddElements。。。");
+    Element element = new Element();
+    element.setId(1111);
+    element.setCreate_time("2018-05-23 14:35:02");
+    element.setCurve("xxx");
+    element.setPicture("xxxxxx");
+    element.setName("ssss");
+    element.setScore(21221);
+    element.setFrom_ip("221212");
+    element.setStatus(0);
+    elementService.addElement(element);
+  }
 
 }

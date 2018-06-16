@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface ElementDao {
   // 数据添加
-  @Insert("insert into fileinfos(id,name,score,picture,curve,create_time) values (#{id},#{name},#{score},#{picture},#{curve},#{create_time})")
+  @Insert("insert into fileinfos(id,name,score,picture,curve,create_time,from_ip,status) values (#{id},#{name},#{score},#{picture},#{curve},#{create_time},#{from_ip},#{status})")
   void addElement(Element element);
 
   // 数据修改
