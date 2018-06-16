@@ -18,7 +18,7 @@ export const clientWork = (SERVER_IP,SERVER_PORT,params) => {
   // })
 
   return axios
-    .post('cmd/clientWork', {
+    .post('http://localhost:8080/cmd/clientWork', {
       serverIp: SERVER_IP,
       serverPort: SERVER_PORT,
       ...params
@@ -34,7 +34,7 @@ export const clientWork = (SERVER_IP,SERVER_PORT,params) => {
 
 export const monitorClientWork = (SERVER_IP,SERVER_PORT,params) => {
   return axios
-    .post('cmd/monitorClientWork', {
+    .post('http://localhost:8080/cmd/monitorClientWork', {
       serverIp: SERVER_IP,
       serverPort: SERVER_PORT,
       ...params
