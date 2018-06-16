@@ -7,8 +7,7 @@
 /coverage
 
 # production
-# jsmap 一般会比较大，所以其实一般都不会上传build目录，但是这个项目特殊之处在于electron需要build之后目录，遂上传
-# /build
+/build
 
 # misc
 .DS_Store
