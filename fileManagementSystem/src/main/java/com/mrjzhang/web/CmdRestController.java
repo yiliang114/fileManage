@@ -1,16 +1,15 @@
 package com.mrjzhang.web;
 
 import com.mrjzhang.client.FtpClientMain;
-import com.mrjzhang.manage.file.JudgeFile;
+import com.mrjzhang.manage.file.DbToExcel;
 import com.mrjzhang.server.FtpServerMain;
 import com.mrjzhang.service.ElementService;
-import com.mrjzhang.utils.CmdBody;
-import com.mrjzhang.utils.CmdServerBody;
-import com.mrjzhang.utils.IpUtil;
+import com.mrjzhang.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping(value="/cmd")
@@ -78,16 +77,20 @@ public class CmdRestController {
     return IpUtil.getIpAddr(request);
   }
 
-  // todo
-  @RequestMapping(value="/dbToExcel", method = RequestMethod.GET)
-  public boolean dbToExcel(HttpServletRequest request) {
+  @RequestMapping(value="/dbToExcel", method = RequestMethod.POST)
+  public boolean dbToExcel(@RequestBody ExcelFileBody excelFileSrc) {
+    System.out.println(excelFileSrc.getSrc());
+    DbToExcel dbToExcel = new DbToExcel();
+
+    // 构造一个空的ReqBody就行了
+    ReqBody reqBody = new ReqBody();
+
+    List results = elementService.getElements(reqBody);
+    System.out.println(results.size());
+
+    dbToExcel.outDbToExcel(excelFileSrc.getSrc(),results);
+
     return true;
   }
-
-  //@RequestMapping(value="/testxxx", method = RequestMethod.GET)
-  //public void testxxx() {
-  //  JudgeFile judgeFile = new JudgeFile();
-  //  judgeFile.manageFile("121212.mat","1212120.0838");
-  //}
 
 }

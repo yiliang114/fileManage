@@ -18,15 +18,9 @@ public class DbToExcel {
 
   public void outDbToExcel(String fileName, List results) {
     try {
-      WritableWorkbook wwb = null;
       // 创建可写入的Excel工作簿
-
-      File file=new File(fileName);
-      if (!file.exists()) {
-        file.createNewFile();
-      }
       //以fileName为文件名来创建一个Workbook
-      wwb = Workbook.createWorkbook(file);
+      WritableWorkbook wwb = Workbook.createWorkbook(new File(fileName));
 
       // 创建工作表
       WritableSheet ws = wwb.createSheet("parabolarBlade", 0);
@@ -40,20 +34,13 @@ public class DbToExcel {
       ws.addCell(labelscore);
       ws.addCell(labelPicture);
       ws.addCell(labelCurve);
-      //
-      //数据库中信息的读取
-      //Session session = HibernateSessionFactory.getSession();
-      //String hql = "FROM Element e ";
-      //org.hibernate.Query query = session.createQuery(hql);
-      //
-      //java.util.List results = query.list();
 
       Iterator it = results.iterator();
 
       int i=0;
       while(it.hasNext()){
         Element obj = (Element) it.next();
-        // System.out.println("name:"+(obj).getName()+"\n"+"score:"+(obj).getScore());
+         //System.out.println("name:"+(obj).getName()+"\n"+"score:"+(obj).getScore());
 
         Label labelName_i= new Label(0, i+1, (obj).getName());
         Label labelscore_i= new Label(1, i+1, Double.toString((obj).getScore()));
@@ -65,21 +52,20 @@ public class DbToExcel {
         ws.addCell(labelPicture_i);
         ws.addCell(labelCurve_i);
 
+        System.out.println(i);
         i++;
+
       }
 
       //写进文档
       wwb.write();
       // 关闭Excel工作簿对象
       wwb.close();
-      //session.close();
+
+      System.out.println("关闭Excel工作簿对象");
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
-  //public static void main(String[] args) {
-  //  DbToExcel dbToExcel = new DbToExcel();
-  //  dbToExcel.outDbToExcel("C:\\Users\\Mrz2J\\Desktop\\test\\text.xls");
-  //}
 }
