@@ -50,7 +50,7 @@ export const monitorClientWork = (SERVER_IP,SERVER_PORT,params) => {
 
 export const fileInfoToDb = (params) => {
   return axios
-    .post('/cmd/fileInfoToDb', {
+    .post('http://localhost:8080/cmd/fileInfoToDb', {
       id: parseInt(Math.random()*100000),
       name: "222",
       score: 0,
@@ -71,7 +71,7 @@ export const fileInfoToDb = (params) => {
 
 export const folderInfoToDb = (picFolderSrc,curveFolderSrc) => {
   return axios
-    .post('/cmd/folderInfoToDb', {
+    .post('http://localhost:8080/cmd/folderInfoToDb', {
       picFolderSrc,curveFolderSrc
     })
     .then(resp => resp.data)

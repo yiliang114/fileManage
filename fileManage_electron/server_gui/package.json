@@ -62,8 +62,8 @@
     "test": "react-app-rewired test --env=jsdom",
     "electron-start": "electron . --env dev",
     "electron": "electron .",
-    "electron-build": "electron-packager . HelloWorld --win --out ./output --version 2.0.0 --overwrite --icon=./public/favicon.ico --ignore=node_modules",
-    "all-build": "npm run build && electron-packager . HelloWorld --all --out ./output --arch=x64 --version 2.0.0 --overwrite --icon=./public/favicon.ico --ignore=node_modules"
+    "electron-build": "electron-packager . Server_GUI --win --out ./output --electron-version 2.0.0 --overwrite --icon=./public/favicon.ico --ignore=node_modules",
+    "all-build": "npm run build && electron-packager . Server_GUI --all --out ./output --arch=x64 --version 2.0.0 --overwrite --icon=./public/favicon.ico --ignore=node_modules"
   },
   "devDependencies": {
     "babel-plugin-import": "^1.7.0",
