@@ -203,7 +203,6 @@ public class ElementRestController{
       imgHideClass.imgHide(picSrc.replace("\\","\\\\"));
 
       plotHideClass plotHideClass = new plotHideClass();
-      //System.out.println(curveSrc.replace("\\","\\\\"));
       plotHideClass.plotHide(curveSrc.replace("\\","\\\\"));
 
       System.out.println("success imgs...");
@@ -216,7 +215,7 @@ public class ElementRestController{
 
 
   @RequestMapping(value = "/uploadImgs", method = RequestMethod.POST)
-  public void uploadImgs(@RequestBody Element element) {
+  public int uploadImgs(@RequestBody Element element) {
     String picSrc = element.getPicture();
     String curveSrc = element.getCurve();
     try {
@@ -230,24 +229,24 @@ public class ElementRestController{
       //File matFile = new File(element.getPicture());
       File matFile = new File(picSrc);
       File curveFile = new File(curveSrc);
-      System.out.println(matFile.getParent() + "\\imgTemp\\" + matFile.getName().substring(0,matFile.getName().length()-4));
       // 获取 name
-      String picName= matFile.getParent() + "\\imgTemp\\" + matFile.getName().substring(0,matFile.getName().length()-4) + ".png";
+      String picName= matFile.getParent() + "\\imageTemp\\" + matFile.getName().substring(0,matFile.getName().length()-4) + ".png";
       System.out.println(picName);
       //parabolarBlade500sl50sh0cx0cy.mat
-      String curName= curveFile.getParent() + "\\imgTemp\\" + curveFile.getName().substring(0,curveFile.getName().length()-5) + ".png";
+      String curName= curveFile.getParent() + "\\imageTemp\\" + curveFile.getName().substring(0,curveFile.getName().length()-5) + ".png";
       System.out.println(curName);
 
 
       QiniuImages qiniuImages = new QiniuImages();
 
-      //qiniuImages.upload(picName, matFile.getName().substring(0,matFile.getName().length()-4) + ".png");
-      //qiniuImages.upload(curName,curveFile.getName().substring(0,curveFile.getName().length()-5) + ".png");
-      //qiniuImages.upload("G:\\作业盘\\javagui\\m-jtest\\03-13\\bladeFile-0\\imageTemp\\parabolarBlade500sl150sh100cx-100cy.png","parabolarBlade500sl150sh100cx-100cy.png");
+      qiniuImages.upload(picName, matFile.getName().substring(0,matFile.getName().length()-4) + ".png");
+      qiniuImages.upload(curName,curveFile.getName().substring(0,curveFile.getName().length()-5) + ".png");
 
+      return 200;
     } catch (Exception e) {
-      System.out.println("error");
+      System.out.println("xxxerror");
       e.printStackTrace();
+      return 0;
     }
   }
 }

@@ -35,6 +35,7 @@ public class QiniuImages {
     public void upload(String FilePath,String key) throws IOException {
     try {
 
+      System.out.printf(FilePath);
       // 调用put方法上传
       Response res = uploadManager.put(FilePath, key, getUpToken());
 
@@ -43,19 +44,20 @@ public class QiniuImages {
       // 200为上传成功
       System.out.println(res.statusCode);
     } catch (QiniuException e) {
-      Response r = e.response;
-
-      // 请求失败时打印的异常的信息
-      System.out.println(r.toString());
-
-      try {
-
-        // 响应的文本信息
-        System.out.println(r.bodyString());
-      } catch (QiniuException e1) {
-
-        // ignore
-      }
+      e.printStackTrace();
+      //Response r = e.response;
+      //
+      //// 请求失败时打印的异常的信息
+      ////System.out.println(r.toString());
+      //
+      //try {
+      //
+      //  // 响应的文本信息
+      //  System.out.println(r.bodyString());
+      //} catch (QiniuException e1) {
+      //
+      //  // ignore
+      //}
     }
   }
 
