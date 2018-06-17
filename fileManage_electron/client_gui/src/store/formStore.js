@@ -5,7 +5,7 @@ configure({enforceActions: true})
 class FormStore {
   // type = 0 表示 单文件传输
   // type = 1 表示 多文件传输
-  @observable type = '0'
+  @observable type = 'folderInput'
 
   @observable SERVER_IP = '127.0.0.1'
   @observable SERVER_PORT = '9999'
@@ -16,6 +16,14 @@ class FormStore {
   @observable folderSrc = 'F:\\fileManageWorkspace\\send\\bladeFile-0\\imageTemp'
   // 自动扫描间隔时间
   @observable scanInterval = 5000
+
+  // 导入数据库文件数据
+  @observable picFileSrc = 'F:\\dataSource\\parabolarBlade\\bladeFile\\parabolarBlade500sl50sh0cx0cy.mat'
+  @observable curveFileSrc = 'F:\\dataSource\\parabolarBlade\\torgeFile0.0838\\parabolarBlade500sl50sh0cx0cy0.0838'
+
+  @observable picFolderSrc = 'F:\\dataSource\\6-17\\bladeFile-0'
+  @observable curveFolderSrc = 'F:\\dataSource\\6-17\\torgeFile0.0838-0'
+  
 
   @action changeValue = (target,value) => {
     if(this[target]) {

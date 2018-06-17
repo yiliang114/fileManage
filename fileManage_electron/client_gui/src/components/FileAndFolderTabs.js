@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input,Tabs,Button, Row, Col,message } from 'antd';
+import { Input,Tabs,Button, Row, Col } from 'antd';
 import {inject, observer} from 'mobx-react'
 
 const TabPane = Tabs.TabPane;
@@ -8,9 +8,9 @@ const dialog = electron.remote.dialog
 
 const TabComponent = ({formStore}) => {
 
-  const {changeValue,fileSrc,folderSrc,scanInterval} = formStore
+  const {changeValue,fileSrc,folderSrc,scanInterval,picFileSrc,curveFileSrc,picFolderSrc,curveFolderSrc} = formStore
 
-  function OpenFileDialog(e) {
+  function OpenFileDialog(e,target) {
     e.preventDefault();
     dialog.showOpenDialog(null, {
       properties: ['openFile','multiSelections'],
@@ -22,19 +22,19 @@ const TabComponent = ({formStore}) => {
     }, function(filenames) {
       console.log('filenames',filenames)
       if(filenames.length > 0 && filenames[0]) {
-        changeValue('fileSrc',filenames[0])
+        changeValue(target,filenames[0])
       }
     });
   }
 
-  function OpenFolderDialog(e) {
+  function OpenFolderDialog(e,target) {
     e.preventDefault();
     dialog.showOpenDialog(null, {
       properties: ['openDirectory','multiSelections'],
     }, function(filenames) {
       console.log('filenames',filenames)
       if(filenames.length > 0 && filenames[0]) {
-        changeValue('folderSrc',filenames[0])
+        changeValue(target,filenames[0])
       }
     });
   }
@@ -52,18 +52,18 @@ const TabComponent = ({formStore}) => {
   }
 
   function callback(key) {
-    console.log(key);
-    changeValue('type', 1)
+    console.log(key === 0);
+    changeValue('type', key)
     console.log(formStore.type);
   }
 
   return (
-    <Tabs defaultActiveKey="folder" onChange={callback}>
+    <Tabs defaultActiveKey="folderInput" onChange={callback}>
       <TabPane tab="单文件传输" key="file">
         <div style={{height: 100}}>
           <Row style={{paddingBottom: 5}}>
             <Col span={6}>
-              <Button type="primary" onClick={OpenFileDialog}>
+              <Button type="primary" onClick={(e) => OpenFileDialog(e,'fileSrc')}>
                 选择文件地址
               </Button>
             </Col>
@@ -77,7 +77,7 @@ const TabComponent = ({formStore}) => {
         <div style={{height: 100}}>
           <Row style={{paddingBottom: 5}}>
             <Col span={6}>
-              <Button type="primary" onClick={OpenFolderDialog}>
+              <Button type="primary" onClick={(e) => OpenFolderDialog(e,'folderSrc')}>
                 选择文件夹地址
               </Button>
             </Col>
@@ -91,6 +91,55 @@ const TabComponent = ({formStore}) => {
             </Col>
             <Col span={6}>
               <Input defaultValue={scanInterval} onChange={enterScanInterval}/>
+            </Col>
+          </Row>
+        </div>
+      </TabPane>
+
+      <TabPane tab="单文件导入" key="fileInput">
+        <div style={{height: 100}}>
+          <Row style={{paddingBottom: 5}}>
+            <Col span={6}>
+              <Button type="primary" onClick={(e) => OpenFileDialog(e,'picFileSrc')}>
+                选择图片文件地址
+              </Button>
+            </Col>
+            <Col span={18}>
+              <h4 style={{lineHeight: '32px'}}>{cutSrc(picFileSrc)}</h4>
+            </Col>
+          </Row>
+          <Row style={{paddingBottom: 5}}>
+            <Col span={6}>
+              <Button type="primary" onClick={(e) => OpenFileDialog(e,'curveFileSrc')}>
+                选择曲线文件地址
+              </Button>
+            </Col>
+            <Col span={18}>
+              <h4 style={{lineHeight: '32px'}}>{cutSrc(curveFileSrc)}</h4>
+            </Col>
+          </Row>
+        </div>
+      </TabPane>
+      <TabPane tab="多文件导入" key="folderInput">
+        <div style={{height: 100}}>
+          <Row style={{paddingBottom: 5}}>
+            <Col span={6}>
+              <Button type="primary" onClick={(e) => OpenFolderDialog(e,'picFolderSrc')}>
+                选择图片文件夹地址
+              </Button>
+            </Col>
+            <Col span={18}>
+              <h4 style={{lineHeight: '32px'}}>{picFolderSrc}</h4>
+            </Col>
+          </Row>
+          <Row style={{paddingBottom: 5}}>
+            <Col span={6}>
+              <Button type="primary" onClick={(e) => OpenFolderDialog(e,'curveFolderSrc')}>
+                选择曲线文件夹地址
+              </Button>
+            </Col>
+            <Col span={18}>
+              <h4 style={{lineHeight: '32px'}}>{curveFolderSrc}</h4>
             </Col>
           </Row>
         </div>

@@ -3,7 +3,7 @@ import { Layout,Form, Input, Button,message } from 'antd';
 import {inject, observer} from 'mobx-react'
 import './App.css';
 
-import {clientWork,monitorClientWork} from './services/apis'
+import {clientWork,monitorClientWork,fileInfoToDb,folderInfoToDb} from './services/apis'
 
 import FileAndFolderTabs from './components/FileAndFolderTabs'
 
@@ -33,7 +33,7 @@ class AppForm extends Component {
         console.log('Received values of form: ', values);
         console.log('type',type)
         let resp = null
-        if(this.props.formStore.type === 0) {
+        if(this.props.formStore.type === 'file') {
           // 单文件传输
           resp = await clientWork(values.serverIp,values.serverPort,{
             fileSrc,
@@ -55,13 +55,28 @@ class AppForm extends Component {
     });
   }
 
+  handleInputSubmit = async (e) => {
+    const {picFileSrc,curveFileSrc,type,picFolderSrc,curveFolderSrc} = this.props.formStore
+    e.preventDefault();
+    let resp = null
+    console.log('handleInputSubmit',type,type === 'fileInput')
+    if(type === 'fileInput') {
+      // 单文件导入
+      resp = await fileInfoToDb({picFileSrc,curveFileSrc})
+    } else {
+      resp = await folderInfoToDb(picFolderSrc,curveFolderSrc)
+    }
+    this.palyInfos(resp ? '操作成功':'操作失败')
+  }
+
   palyInfos = (infos) => {
     message.info(infos);
   }
 
   render() {
     const { getFieldDecorator } = this.props.form;
-
+    const {type} = this.props.formStore
+    
     return (
       <Layout>
         <Header style={{background: 'white', textAlign: 'center'}}>
@@ -94,9 +109,15 @@ class AppForm extends Component {
                 )}
               </FormItem>
               <FileAndFolderTabs />
-              <Button type="primary" onClick={this.handleSubmit}>
-                传输
-              </Button>
+              {
+                type === 'file' || type === 'folder' ? <Button type="primary" onClick={this.handleSubmit}>
+                  传输
+                </Button>
+                : <Button type="primary" onClick={this.handleInputSubmit}>
+                  插入数据库
+                </Button>
+              }
+
             </Form>
           </Content>
         </Layout>  

@@ -52,7 +52,7 @@ function createWindow() {
   // close menu
   mainWindow.setMenu(null)
   // Open the DevTools. 
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
   // window is closed.
   mainWindow
     .on('closed', function () {

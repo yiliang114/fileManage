@@ -47,3 +47,38 @@ export const monitorClientWork = (SERVER_IP,SERVER_PORT,params) => {
       console.error('请求出错，请重试')
     });
 }
+
+export const fileInfoToDb = (params) => {
+  return axios
+    .post('/cmd/fileInfoToDb', {
+      id: parseInt(Math.random()*100000),
+      name: "222",
+      score: 0,
+      picture: params.picFileSrc,
+      curve: params.curveFileSrc,
+      create_time: "2018-05-23 14:35:02",
+      from_ip: "ip1",
+      status: 0
+    })
+    .then(resp => resp.data)
+    .then(resp => {
+      return resp;
+    })
+    .catch(error => {
+      console.error('请求出错，请重试')
+    });
+}
+
+export const folderInfoToDb = (picFolderSrc,curveFolderSrc) => {
+  return axios
+    .post('/cmd/folderInfoToDb', {
+      picFolderSrc,curveFolderSrc
+    })
+    .then(resp => resp.data)
+    .then(resp => {
+      return resp;
+    })
+    .catch(error => {
+      console.error('请求出错，请重试')
+    });
+}
