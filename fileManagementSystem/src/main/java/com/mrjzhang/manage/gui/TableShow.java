@@ -48,7 +48,6 @@
 //	}
 //
 //	private void initTableData() {
-//		// TODO Auto-generated method stub
 //		// 初始化表格的内容，直接从数据库读取
 //		Session session = HibernateSessionFactory.getSession();
 //		String hql = "FROM Element e ";
@@ -72,7 +71,6 @@
 //
 //	}
 //	private void initTableDataDESC() {
-//		// TODO Auto-generated method stub
 //		// 初始化表格的内容，直接从数据库读取
 //		Session session = HibernateSessionFactory.getSession();
 //		String hql = "FROM Element e ORDER BY e.score DESC";
@@ -97,7 +95,6 @@
 //	}
 //
 //	private void initComponent() {
-//		// TODO Auto-generated method stub
 //		this.setSize(600, 500);
 //		table = new ElementTable();
 //		panel = new JScrollPane(table);
@@ -162,7 +159,6 @@
 //	 * 按钮事件
 //	 */
 //	public void actionPerformed(ActionEvent e) {
-//		// TODO Auto-generated method stub
 //		JButton button = (JButton) e.getSource();
 //		if (button.equals(desc)) {
 //			Element.elements = new ArrayList<Element>();
@@ -193,7 +189,6 @@
 //				m = new imagescMat();
 //				m.imagescMat(pathName);
 //			} catch (MWException e1) {
-//				// TODO Auto-generated catch block
 //				e1.printStackTrace();
 //			}
 //

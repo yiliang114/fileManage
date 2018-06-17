@@ -2,8 +2,6 @@ package com.mrjzhang.manage.file;
 import java.io.File;
 
 import com.mrjzhang.bean.Element;
-import com.mrjzhang.service.ElementService;
-import com.mrjzhang.service.ElementServiceImpl;
 
 /**
  * 可以单条记录输入.
@@ -33,15 +31,12 @@ public class JudgeFile {
    * @param picturePathName the picture path name
    * @param curvePathName   the curve path name
    */
-  public void manageFile(String picturePathName, String curvePathName){
+  public boolean manageFile(String picturePathName, String curvePathName){
 
 		int i=picturePathName.lastIndexOf("\\")+1;
 		System.out.println(i);
 		int j=curvePathName.lastIndexOf("\\")+1;
 		System.out.println(j);
-
-		//Session s=HibernateSessionFactory.getSession();
-		//Transaction tx=s.beginTransaction();
 
 		Element element=new Element();
 
@@ -65,41 +60,15 @@ public class JudgeFile {
 			//parabolarBlade500sl50sh0cx50cy
 
       // 判断（judge）两个文件的名称是否匹配
-      //if((picName.equals(curName))&&curveFile.isFile()&&pictureFile.isFile()){
-      if(true){
-				element.setName(picName);
-				picturePathName = picturePathName.replace("\\", "/");
-				element.setPicture(picturePathName);
-				curvePathName = curvePathName.replace("\\", "/");
-				element.setCurve(curvePathName);
-        //element.setScore(Double.parseDouble(readfile.readTxtScore(curvePathName)));
-        element.setScore(11);
-
-				//s.save(element);
-				//tx.commit();
-        //
-				//s.close();
-
-        // test
-        element.setCreate_time("2018-05-23 14:35:02");
-        element.setId(1234);
-
-        //ElementServiceImpl elementService = new ElementServiceImpl();
-        //System.out.println(elementService);
-        //System.out.println(elementService.addElement(element));
-        //System.out.println(elementService.addElement(element));
-
-				System.out.println(picName+"插入数据库成功！");
-				result = result+picName+"插入数据库成功！"+"\n";
+      if((picName.equals(curName))&&curveFile.isFile()&&pictureFile.isFile()){
+				return true;
 			}else{
-				System.out.println("文件不匹配！插入数据库错误");
-				result = result+"文件不匹配！插入数据库错误"+"\n";
+				return false;
 			}
 
 		}catch (Exception ex) {
 		  ex.printStackTrace();
-			System.out.println("主键冲突或者输入的文件名不正确！插入数据库错误");
-			result = result+"主键冲突或者输入的文件名不正确！插入数据库错误"+"\n";
+      return false;
 		}
 
 	}

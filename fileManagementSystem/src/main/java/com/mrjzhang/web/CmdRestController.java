@@ -1,7 +1,8 @@
 package com.mrjzhang.web;
 
+import com.mrjzhang.bean.Element;
 import com.mrjzhang.client.FtpClientMain;
-import com.mrjzhang.manage.file.DbToExcel;
+import com.mrjzhang.manage.file.*;
 import com.mrjzhang.server.FtpServerMain;
 import com.mrjzhang.service.ElementService;
 import com.mrjzhang.utils.*;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.List;
 
 @RestController
@@ -90,6 +92,89 @@ public class CmdRestController {
 
     dbToExcel.outDbToExcel(excelFileSrc.getSrc(),results);
 
+    return true;
+  }
+
+  @RequestMapping(value="/fileInfoToDb", method = RequestMethod.POST)
+  public boolean fileInfoToDb(@RequestBody Element element) {
+    System.out.println(element.getName());
+    System.out.println(element.getPicture());
+    System.out.println(element.toString());
+
+    JudgeFile judgeFile = new JudgeFile();
+    if(judgeFile.manageFile(element.getPicture(),element.getCurve())) {
+
+      // 重新设置名称
+      File file = new File(element.getPicture());
+      String name = file.getName().substring(0,file.getName().length()-4);
+      element.setName(name);
+
+      // 重新设置分数
+      ReadScore readfile = new ReadScore();
+      element.setScore(Double.parseDouble(readfile.readTxtScore(element.getCurve())));
+      // 如果文件名称匹配的话，插入数据库
+      elementService.addElement(element);
+      System.out.println("插入数据成功");
+      return true;
+    } else {
+      System.out.println("插入数据失败");
+      return false;
+    }
+
+  }
+
+  @RequestMapping(value="/folderInfoToDb", method = RequestMethod.POST)
+  public boolean folderInfoToDb(@RequestBody InitElementBody initElementBody) {
+    System.out.println(initElementBody.getCurveFolderSrc());
+
+
+    File folderPicturePath = new File(initElementBody.getPicFolderSrc());
+    String filesPicturePath[];
+
+    // 将文件夹中的文件目录集合放入字符串数组中
+    filesPicturePath = folderPicturePath.list();
+
+    // 文件夹中的文件名写入字符串数组中
+    JudgeFile judge = new JudgeFile();
+    // 搜索同名关键字的曲线文件
+    // 有相应的算法对文件的名称进行匹配，只有两个文件的文件名匹配对了以后才会进行插入操作。
+    SearchFile searchFile = new SearchFile();
+
+    // 初始化状态的Element
+    Element element = new Element();
+    element.setId((int)(Math.random()*100000));
+    element.setStatus(0);
+    element.setFrom_ip("ip1");
+    element.setCreate_time("2018-05-23 14:35:02");
+
+    for (int i = 0; i < filesPicturePath.length; i++) {
+      // 文件名直接list 出来不带目录
+      String tempFileCurvePath = filesPicturePath[i].substring(0, filesPicturePath[i].lastIndexOf("."));
+      System.out.println(tempFileCurvePath);
+      tempFileCurvePath = searchFile.search(initElementBody.getCurveFolderSrc().replace("\\","\\\\"), tempFileCurvePath);
+
+      if(tempFileCurvePath == null) {
+        continue;
+      }
+      // 文件夹名称和文件名称进行拼接，得到图片文件完整的路径名
+      filesPicturePath[i] = initElementBody.getPicFolderSrc() + "\\" + filesPicturePath[i];
+
+      element.setPicture(filesPicturePath[i]);
+      element.setCurve(initElementBody.getCurveFolderSrc()+"\\"+tempFileCurvePath);
+
+      // 重新设置名称
+      File file = new File(element.getPicture());
+      String name = file.getName().substring(0,file.getName().length()-4);
+      element.setName(name);
+
+      // 重新设置分数
+      ReadScore readfile = new ReadScore();
+      element.setScore(Double.parseDouble(readfile.readTxtScore(element.getCurve())));
+      // 如果文件名称匹配的话，插入数据库
+      elementService.addElement(element);
+      System.out.println("插入数据成功");
+
+    }
     return true;
   }
 
