@@ -217,6 +217,9 @@ export default class ElementDetail extends React.Component {
         {/* todo PictureChunk */}
           <TextChunk title="基本信息" columns={baseInfoColumns} dataSource={detail} />
           <Divider />
+          <img src={'http://p9eaf78s5.bkt.clouddn.com/parabolarBlade500sl150sh100cx-100cy.png'} />
+          <img src={'http://p9eaf78s5.bkt.clouddn.com/parabolarBlade500sl50sh0cx0cy0.png'} />
+          {/* http://p9eaf78s5.bkt.clouddn.com/parabolarBlade500sl50sh0cx0cy0.png */}
 
           <Button style={{backgroundColor: 'red',color: 'white'}} onClick={() => this.deleteElement(detail.id)}>删除</Button>
 
