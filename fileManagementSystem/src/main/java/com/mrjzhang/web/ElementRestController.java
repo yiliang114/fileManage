@@ -1,17 +1,19 @@
 package com.mrjzhang.web;
 
+import com.mathworks.toolbox.javabuilder.MWException;
 import com.mrjzhang.bean.Element;
 import com.mrjzhang.resultBody.ResponseResult;
 import com.mrjzhang.service.ElementService;
+import com.mrjzhang.utils.QiniuImages;
 import com.mrjzhang.utils.ReqBody;
 import com.mrjzhang.utils.ResultUtil;
+import imgHide.imgHideClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import plotHide.plotHideClass;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -20,7 +22,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/element/api")
-public class ElementRestController {
+public class ElementRestController{
   @Autowired
   private ElementService elementService;
 
@@ -168,9 +170,6 @@ public class ElementRestController {
     }
 
 
-
-
-
     map.put("elements" , elements);
     map.put("total" ,size);
 
@@ -192,4 +191,65 @@ public class ElementRestController {
     elementService.addElement(element);
   }
 
+
+  @RequestMapping(value = "/createImgs", method = RequestMethod.POST)
+  public void createImgs(@RequestBody Element element) {
+    //String picSrc = element.getPicture();
+    //String curveSrc = element.getCurve();
+
+    try {
+
+      //imgHideClass imgHideClass = new imgHideClass();
+      //imgHideClass.imgHide("G:\\作业盘\\javagui\\m-jtest\\03-13\\bladeFile-0\\parabolarBlade500sl400sh250cx250cy.mat");
+
+      plotHideClass plotHideClass = new plotHideClass();
+      plotHideClass.plotHide("G:\\作业盘\\javagui\\m-jtest\\03-13\\torgeFile0.0838-0\\parabolarBlade500sl1000sh-100cx250cy0.0838");
+
+      System.out.println("success imgs...");
+
+      // 上传文件的路径
+      //String FilePath = "C:\\Users\\Mrz2J\\Desktop\\qiniu\\1.jpg";
+
+      // 上传到七牛后保存的文件名    访问为：http://oswj11a86.bkt.clouddn.com/daimo6.png
+      //String key = "daimo2.png";
+
+      //File matFile = new File(element.getPicture());
+      File matFile = new File("F:\\dataSource\\parabolarBlade\\bladeFile\\parabolarBlade500sl50sh0cx0cy.mat");
+      File curveFile = new File("G:\\作业盘\\javagui\\m-jtest\\03-13\\torgeFile0.0838-0\\parabolarBlade500sl150sh100cx-200cy0.0838");
+      System.out.println(matFile.getParent() + "\\imgTemp\\" + matFile.getName().substring(0,matFile.getName().length()-4));
+      // 获取 name
+      String picName= matFile.getParent() + "\\imgTemp\\" + matFile.getName().substring(0,matFile.getName().length()-4) + ".png";
+      System.out.println(picName);
+      //parabolarBlade500sl50sh0cx0cy.mat
+      String curName= curveFile.getParent() + "\\imgTemp\\" + curveFile.getName().substring(0,curveFile.getName().length()-5) + ".png";
+      System.out.println(curName);
+
+
+      QiniuImages qiniuImages = new QiniuImages();
+
+      //qiniuImages.upload(picName, matFile.getName().substring(0,matFile.getName().length()-4) + ".png");
+      //qiniuImages.upload(curName,curveFile.getName().substring(0,curveFile.getName().length()-5) + ".png");
+      //qiniuImages.upload("G:\\作业盘\\javagui\\m-jtest\\03-13\\bladeFile-0\\imageTemp\\parabolarBlade500sl150sh100cx-100cy.png","parabolarBlade500sl150sh100cx-100cy.png");
+
+      System.out.println("上传成功");
+
+    } catch (MWException e) {
+      System.out.println("error");
+      e.printStackTrace();
+    }
+  }
+
+
+  @RequestMapping(value = "/imagesc", method = RequestMethod.GET)
+  public void imagesc() {
+    try {
+
+      imgHideClass imgHideClass = new imgHideClass();
+      imgHideClass.imgHide("G:\\作业盘\\javagui\\m-jtest\\03-13\\bladeFile-0\\parabolarBlade500sl400sh250cx250cy.mat");
+
+    } catch (Exception e) {
+      System.out.println("error");
+      e.printStackTrace();
+    }
+  }
 }
