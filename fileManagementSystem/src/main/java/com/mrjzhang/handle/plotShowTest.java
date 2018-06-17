@@ -11,7 +11,7 @@ public class plotShowTest {
     plotHideClass i;
     try {
       i = new plotHideClass();
-      i.plotHide("G:\\作业盘\\javagui\\m-jtest\\03-13\\torgeFile0.0838-0\\parabolarBlade500sl150sh100cx-200cy0.0838");
+      i.plotHide("F:\\dataSource\\parabolarBlade\\torgeFile0.0838\\parabolarBlade500sl50sh0cx0cy0.0838");
       System.out.println("success");
     } catch (MWException e) {
       System.out.println("error");

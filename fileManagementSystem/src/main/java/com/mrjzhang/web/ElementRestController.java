@@ -194,18 +194,32 @@ public class ElementRestController{
 
   @RequestMapping(value = "/createImgs", method = RequestMethod.POST)
   public void createImgs(@RequestBody Element element) {
-    //String picSrc = element.getPicture();
-    //String curveSrc = element.getCurve();
+    String picSrc = element.getPicture();
+    String curveSrc = element.getCurve();
 
     try {
 
-      //imgHideClass imgHideClass = new imgHideClass();
-      //imgHideClass.imgHide("G:\\作业盘\\javagui\\m-jtest\\03-13\\bladeFile-0\\parabolarBlade500sl400sh250cx250cy.mat");
+      imgHideClass imgHideClass = new imgHideClass();
+      imgHideClass.imgHide(picSrc.replace("\\","\\\\"));
 
       plotHideClass plotHideClass = new plotHideClass();
-      plotHideClass.plotHide("G:\\作业盘\\javagui\\m-jtest\\03-13\\torgeFile0.0838-0\\parabolarBlade500sl1000sh-100cx250cy0.0838");
+      //System.out.println(curveSrc.replace("\\","\\\\"));
+      plotHideClass.plotHide(curveSrc.replace("\\","\\\\"));
 
       System.out.println("success imgs...");
+
+    } catch (MWException e) {
+      System.out.println("error");
+      e.printStackTrace();
+    }
+  }
+
+
+  @RequestMapping(value = "/uploadImgs", method = RequestMethod.POST)
+  public void uploadImgs(@RequestBody Element element) {
+    String picSrc = element.getPicture();
+    String curveSrc = element.getCurve();
+    try {
 
       // 上传文件的路径
       //String FilePath = "C:\\Users\\Mrz2J\\Desktop\\qiniu\\1.jpg";
@@ -214,8 +228,8 @@ public class ElementRestController{
       //String key = "daimo2.png";
 
       //File matFile = new File(element.getPicture());
-      File matFile = new File("F:\\dataSource\\parabolarBlade\\bladeFile\\parabolarBlade500sl50sh0cx0cy.mat");
-      File curveFile = new File("G:\\作业盘\\javagui\\m-jtest\\03-13\\torgeFile0.0838-0\\parabolarBlade500sl150sh100cx-200cy0.0838");
+      File matFile = new File(picSrc);
+      File curveFile = new File(curveSrc);
       System.out.println(matFile.getParent() + "\\imgTemp\\" + matFile.getName().substring(0,matFile.getName().length()-4));
       // 获取 name
       String picName= matFile.getParent() + "\\imgTemp\\" + matFile.getName().substring(0,matFile.getName().length()-4) + ".png";
@@ -230,22 +244,6 @@ public class ElementRestController{
       //qiniuImages.upload(picName, matFile.getName().substring(0,matFile.getName().length()-4) + ".png");
       //qiniuImages.upload(curName,curveFile.getName().substring(0,curveFile.getName().length()-5) + ".png");
       //qiniuImages.upload("G:\\作业盘\\javagui\\m-jtest\\03-13\\bladeFile-0\\imageTemp\\parabolarBlade500sl150sh100cx-100cy.png","parabolarBlade500sl150sh100cx-100cy.png");
-
-      System.out.println("上传成功");
-
-    } catch (MWException e) {
-      System.out.println("error");
-      e.printStackTrace();
-    }
-  }
-
-
-  @RequestMapping(value = "/imagesc", method = RequestMethod.GET)
-  public void imagesc() {
-    try {
-
-      imgHideClass imgHideClass = new imgHideClass();
-      imgHideClass.imgHide("G:\\作业盘\\javagui\\m-jtest\\03-13\\bladeFile-0\\parabolarBlade500sl400sh250cx250cy.mat");
 
     } catch (Exception e) {
       System.out.println("error");

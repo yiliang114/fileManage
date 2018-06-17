@@ -10,7 +10,7 @@ public class imgShowTest {
     imgHideClass i;
     try {
       i = new imgHideClass();
-      i.imgHide("G:\\作业盘\\javagui\\m-jtest\\03-13\\bladeFile-0\\parabolarBlade500sl150sh100cx-100cy.mat");
+      i.imgHide("F:\\dataSource\\parabolarBlade\\bladeFile\\parabolarBlade500sl50sh0cx0cy.mat");
       System.out.println("success");
     } catch (MWException e) {
       System.out.println("error");
