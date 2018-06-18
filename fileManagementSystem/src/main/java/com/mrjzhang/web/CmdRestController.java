@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -25,7 +27,7 @@ public class CmdRestController {
     try {
       FtpClientMain ftpClientMain = new FtpClientMain();
 
-      if(cmdBody.getType() == 0) {
+      if(cmdBody.getType() == "file") {
         ftpClientMain.start(cmdBody.getServerIp(),cmdBody.getServerPort(),cmdBody.getFileSrc());
 
       }
@@ -45,9 +47,10 @@ public class CmdRestController {
     try {
       FtpClientMain ftpClientMain = new FtpClientMain();
 
-      if(cmdBody.getType() == 1) {
-        ftpClientMain.multifileStart(cmdBody.getServerIp(),cmdBody.getServerPort(),cmdBody.getFolderSrc(),cmdBody.getScanInterval());
-      }
+      ftpClientMain.multifileStart(cmdBody.getServerIp(),cmdBody.getServerPort(),cmdBody.getFolderSrc(),cmdBody.getScanInterval());
+      //if(cmdBody.getType() == "folder") {
+      //  ftpClientMain.multifileStart(cmdBody.getServerIp(),cmdBody.getServerPort(),cmdBody.getFolderSrc(),cmdBody.getScanInterval());
+      //}
       System.out.println("传输多文件成功");
 
     } catch (Exception e) {
@@ -145,9 +148,16 @@ public class CmdRestController {
     element.setId((int)(Math.random()*100000));
     element.setStatus(0);
     element.setFrom_ip("ip1");
-    element.setCreate_time("2018-05-23 14:35:02");
+    Date d = new Date();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    System.out.println("sdf.format(d)" + sdf.format(d));
+    element.setCreate_time(sdf.format(d));
 
     for (int i = 0; i < filesPicturePath.length; i++) {
+      System.out.println("filesPicturePath[i]:" +filesPicturePath[i]);
+      if(filesPicturePath[i].equals("imageTemp")) {
+        continue;
+      }
       // 文件名直接list 出来不带目录
       String tempFileCurvePath = filesPicturePath[i].substring(0, filesPicturePath[i].lastIndexOf("."));
       System.out.println(tempFileCurvePath);
@@ -170,6 +180,7 @@ public class CmdRestController {
       // 重新设置分数
       ReadScore readfile = new ReadScore();
       element.setScore(Double.parseDouble(readfile.readTxtScore(element.getCurve())));
+      element.setId(element.getId() + i);
       // 如果文件名称匹配的话，插入数据库
       elementService.addElement(element);
       System.out.println("插入数据成功");

@@ -9,7 +9,7 @@ public class CmdBody {
   private String fileSrc;
   private String folderSrc;
   private int scanInterval;
-  private int type;
+  private String type;
 
   public String getServerIp() {
     return serverIp;
@@ -51,11 +51,11 @@ public class CmdBody {
     this.scanInterval = scanInterval;
   }
 
-  public int getType() {
+  public String getType() {
     return type;
   }
 
-  public void setType(int type) {
+  public void setType(String type) {
     this.type = type;
   }
 }

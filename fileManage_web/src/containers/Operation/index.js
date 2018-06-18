@@ -34,7 +34,7 @@ export default class Operation extends React.Component {
         // } else if (info.file.status === 'error') {
         //   message.error(`${info.file.name} file upload failed.`);
         // }
-        alert(info.file.name)
+        // alert(info.file.name)
       },
     };
 
