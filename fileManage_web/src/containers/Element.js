@@ -5,8 +5,8 @@ import { inject, observer } from 'mobx-react'
 import { withRouter } from "react-router-dom";
 import './element.less';
 
-import AccreditModal from './AccreditModal'
-import DeleteModal from './DeleteModal'
+// import AccreditModal from './AccreditModal'
+// import DeleteModal from './DeleteModal'
 import ElementDetail from './ElementDetail'
 
 import { formatTime } from '../lib/utils';
@@ -18,7 +18,7 @@ const RadioGroup = Radio.Group;
 // datePicker
 const { RangePicker } = DatePicker
 
-@inject('elementStore', 'detailStore', 'creationStore')
+@inject('elementStore', 'detailStore')
 @observer
 class Element extends React.Component {
 
@@ -297,8 +297,8 @@ class Element extends React.Component {
           <RangePicker className="angle-radio" format="YYYY-MM-DD" onChange={this.dateOnChange} />
           <Table style={{ marginTop: 10 }} columns={columns} dataSource={elementList} onChange={this.handleChange} rowKey={record => record.id} pagination={false} />
           <Pagination total={elementTotal} showSizeChanger showTotal={this.showTotal} onChange={this.changePage} onShowSizeChange={this.onShowSizeChange} />
-          <AccreditModal crowdId={this.state.id} />
-          <DeleteModal record={this.state.record} />
+          {/* <AccreditModal crowdId={this.state.id} /> */}
+          {/* <DeleteModal record={this.state.record} /> */}
           <ElementDetail />
         </Card>
 

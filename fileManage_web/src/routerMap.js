@@ -59,7 +59,6 @@ class RouteMap extends React.Component {
             >
               <Menu.Item key="monitor"><Link to="/monitor"><span><Icon type="area-chart" />Element Monitor</span></Link></Menu.Item>
               <Menu.Item key="table" ><Link to="/table"><span><Icon type="laptop" />Element Table</span></Link></Menu.Item>
-              <Menu.Item key="upload" ><Link to="/upload"><span><Icon type="folder-add" />Element upload</span></Link></Menu.Item>
               <Menu.Item key="configuration" ><Link to="/configuration"><span><Icon type="setting" />upload configuration</span></Link></Menu.Item>
               <Menu.Item key="operation" ><Link to="/operation"><span><Icon type="appstore-o" />其他功能</span></Link></Menu.Item>
             </Menu>
