@@ -24,13 +24,13 @@ class Chart extends React.Component {
     // 绘制图表
     myChart.setOption({
       title: {
-        text: '折线图堆叠'
+        text: '客户端文件统计'
       },
       tooltip: {
           trigger: 'axis'
       },
       legend: {
-          data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+          data:['221212','ip1','ip2','ip3']
       },
       grid: {
           left: '3%',
@@ -53,34 +53,28 @@ class Chart extends React.Component {
       },
       series: [
           {
-              name:'邮件营销',
+              name:'221212',
               type:'line',
               stack: '总量',
-              data:[120, 132, 101, 134, 90, 230, 210]
+              data:[2, 2, 1, 0, 0, 1, 1]
           },
           {
-              name:'联盟广告',
+              name:'ip1',
               type:'line',
               stack: '总量',
-              data:[220, 182, 191, 234, 290, 330, 310]
+              data:[2, 1, 2, 3, 0, 1, 2]
           },
           {
-              name:'视频广告',
+              name:'ip2',
               type:'line',
               stack: '总量',
-              data:[150, 232, 201, 154, 190, 330, 410]
+              data:[3, 2, 1, 0, 5, 1, 2]
           },
           {
-              name:'直接访问',
+              name:'ip3',
               type:'line',
               stack: '总量',
-              data:[320, 332, 301, 334, 390, 330, 320]
-          },
-          {
-              name:'搜索引擎',
-              type:'line',
-              stack: '总量',
-              data:[820, 932, 901, 934, 1290, 1330, 1320]
+              data:[2, 1, 2, 3, 1, 2, 4]
           }
       ]
     });
@@ -103,12 +97,10 @@ class Chart extends React.Component {
     
   }
 
-
-
   render() {
     return (
       <div>
-        Chart
+        图表显示
         <div id="main" style={{ width: '100%', height: 400 }}></div>
       </div>
     )
