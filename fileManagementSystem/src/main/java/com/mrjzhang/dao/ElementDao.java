@@ -13,7 +13,7 @@ public interface ElementDao {
   void addElement(Element element);
 
   // 数据修改
-  @Update("update fileinfos set name=#{name},score=#{score},picture=#{picture},curve=#{curve},create_time=#{create_time} where id=#{id}")
+  @Update("update fileinfos set name=#{name},score=#{score},picture=#{picture},curve=#{curve},create_time=#{create_time},status=#{status} where id=#{id}")
   void updateELement(Element element);
 
   // 数据删除

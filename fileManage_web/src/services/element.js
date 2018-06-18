@@ -54,15 +54,14 @@ export const updateELement = (element) => {
 }
 
 // 画图并上传七牛云
-export const createImgs = (params) => {
+export const createImgs = (element) => {
   return request('/element/api/createImgs',{
-    id: 111,
-    name: 'xxx',
-    score: 100,
-    picture: 'F:\\dataSource\\parabolarBlade\\bladeFile\\parabolarBlade500sl50sh0cx0cy.mat',
-    curve: 'G:\\作业盘\\javagui\\m-jtest\\03-13\\torgeFile0.0838-0\\parabolarBlade500sl150sh100cx-200cy0.0838',
-    create_time: '2222',
-    from_ip: '1221',
-    status: 0
+    ...element
+  })
+}
+
+export const uploadImgs = (element) => {
+  return request('/element/api/uploadImgs',{
+    ...element
   })
 }

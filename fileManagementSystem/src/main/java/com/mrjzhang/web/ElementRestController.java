@@ -242,6 +242,9 @@ public class ElementRestController{
       qiniuImages.upload(picName, matFile.getName().substring(0,matFile.getName().length()-4) + ".png");
       qiniuImages.upload(curName,curveFile.getName().substring(0,curveFile.getName().length()-5) + ".png");
 
+      element.setStatus(2);
+      elementService.updateELement(element);
+
       return 200;
     } catch (Exception e) {
       System.out.println("xxxerror");

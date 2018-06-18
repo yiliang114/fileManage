@@ -242,16 +242,16 @@ class Element extends React.Component {
     },
     {
       title: '创建状态',
-      dataIndex: 'score',
+      dataIndex: 'status',
       key: 'status',
       width: 120,      
       render: (text, record) => (
-        text == 3 ? <div style={{ color: '#ff4d4f' }}>失败</div> : text == 2 ? <div style={{ color: '#95de64' }}>成功</div> : <div>准备中</div>
+        text == 2 ? <div style={{ color: '#95de64' }}>完成</div> : text == 1 ? <div style={{ color: '#ff4d4f' }}>失败</div> : <div>准备中</div>
       ),
       filters: [
-        { text: '失败', value: '3' },
-        { text: '成功', value: '2' },
-        { text: '准备中', value: '1' }
+        { text: '失败', value: 2 },
+        { text: '成功', value: 1 },
+        { text: '准备中', value: 0 }
       ],
       filteredValue: filteredInfo.status || null,
       // todo 这里需要数据库加字段才能解决

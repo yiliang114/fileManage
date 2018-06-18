@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal,  Divider, Tag, Icon, Input, message,Button } from 'antd';
 import { observer, inject } from 'mobx-react';
-import {deleteElement,updateELement} from '../services/element'
+import {deleteElement,updateELement,createImgs,uploadImgs} from '../services/element'
 
 import TextChunk from './Common/TextChunk'
 
@@ -217,9 +217,21 @@ export default class ElementDetail extends React.Component {
         {/* todo PictureChunk */}
           <TextChunk title="基本信息" columns={baseInfoColumns} dataSource={detail} />
           <Divider />
-          <img src={'http://p9eaf78s5.bkt.clouddn.com/parabolarBlade500sl150sh100cx-100cy.png'} />
-          <img src={'http://p9eaf78s5.bkt.clouddn.com/parabolarBlade500sl50sh0cx0cy0.png'} />
-          {/* http://p9eaf78s5.bkt.clouddn.com/parabolarBlade500sl50sh0cx0cy0.png */}
+          {
+            detail.status === 0 || detail.status === undefined ? <div>
+              <h4>图片未准备就绪....</h4>
+              <Button onClick={() => createImgs(detail)}>生成图片</Button>  
+              <Button onClick={() => uploadImgs(detail)}>上传七牛云</Button>  
+            </div>
+            : detail.status === 2 ? <div>
+                <img src={`http://p9eaf78s5.bkt.clouddn.com/${detail.name}.png`} />
+                <img src={`http://p9eaf78s5.bkt.clouddn.com/${detail.name}0.png`} />
+              </div>
+              : <div>
+              <img src={'http://p9eaf78s5.bkt.clouddn.com/parabolarBlade500sl150sh100cx-100cy.png'} />
+              <img src={'http://p9eaf78s5.bkt.clouddn.com/parabolarBlade500sl50sh0cx0cy0.png'} />
+            </div>
+          }
 
           <Button style={{backgroundColor: 'red',color: 'white'}} onClick={() => this.deleteElement(detail.id)}>删除</Button>
 
