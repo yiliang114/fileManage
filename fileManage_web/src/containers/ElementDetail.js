@@ -1,6 +1,7 @@
 import React from 'react'
 import { Modal,  Divider, Tag, Icon, Input, message,Button } from 'antd';
 import { observer, inject } from 'mobx-react';
+import LazyLoad from 'react-lazyload';
 import {deleteElement,updateELement,createImgs,uploadImgs} from '../services/element'
 
 import TextChunk from './Common/TextChunk'
@@ -225,7 +226,9 @@ export default class ElementDetail extends React.Component {
             </div>
             : detail.status === 2 ? <div>
                 <img src={`http://p9eaf78s5.bkt.clouddn.com/${detail.name}.png`} />
-                <img src={`http://p9eaf78s5.bkt.clouddn.com/${detail.name}0.png`} />
+                <LazyLoad height={656}>
+                  <img src={`http://p9eaf78s5.bkt.clouddn.com/${detail.name}0.png`} />
+                </LazyLoad>
               </div>
               : <div>
               <img src={'http://p9eaf78s5.bkt.clouddn.com/parabolarBlade500sl150sh100cx-100cy.png'} />
